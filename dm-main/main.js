@@ -421,13 +421,16 @@ function buildBookCardHtml(book, t) {
     const catKey = CATEGORY_LABEL_KEYS[book.category];
     const categoryLabel = catKey ? t[catKey] : escapeHtml(book.category);
 
+    const isFeatured = book.is_featured === true;
+
     return `
-        <div class="book-card">
+        <div class="book-card${isFeatured ? " book-card--featured" : ""}">
+            ${isFeatured ? `<div class="book-card-featured-ribbon">${currentLang === "ar" ? "مميّز" : "FEATURED"}</div>` : ""}
             <button class="wishlist-btn ${inWishlist ? "active" : ""}" onclick="toggleWishlistItem('${bookId}')" title="${escapeHtml(t.wishlistDrawerTitle)}">
                 <i class="${inWishlist ? "fa-solid" : "fa-regular"} fa-heart"></i>
             </button>
-            <span class="book-badge ${isOutOfStock ? "badge-out-of-stock" : isAr ? "badge-ar" : "badge-en"}">
-                ${isOutOfStock ? t.outOfStock : isAr ? t.arLangName : t.enLangName}
+            <span class="book-badge ${isOutOfStock ? "badge-out-of-stock" : isFeatured ? "badge-featured" : isAr ? "badge-ar" : "badge-en"}">
+                ${isOutOfStock ? t.outOfStock : isFeatured ? (currentLang === "ar" ? "مميّز" : "Featured") : isAr ? t.arLangName : t.enLangName}
             </span>
             <a href="book-details.html?id=${bookId}" class="book-card-img">${coverImgHtml}</a>
             <div class="book-card-info">

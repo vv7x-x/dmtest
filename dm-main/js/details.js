@@ -254,13 +254,22 @@ function renderBookDetails(book) {
         </div>`;
     }
     
+    const isFeatured = book.is_featured === true;
     const langValName = isAr ? t.arLangName : t.enLangName;
-    const categoryLabel = t["cat" + book.category.charAt(0).toUpperCase() + book.category.slice(1).replace("-", "")] || book.category;
+    const categoryLabel = t["cat" + book.category.charAt(0).toUpperCase() + book.category.slice(1).replace("-", "")] || escapeHtml(book.category);
+    const featuredLabel = currentLang === "ar" ? "مميّز" : "Featured";
     
     container.innerHTML = `
-        <div class="details-gallery">
+        <div class="details-gallery${isFeatured ? " details-gallery--featured" : ""}">
+            ${isFeatured ? `<div class="details-featured-badge"><i class="fa-solid fa-star"></i> ${featuredLabel}</div>` : ""}
             ${coverHtml}
         </div>
+        <div class="details-info">
+            <div class="details-meta-top">
+                <span class="details-lang-tag">${langValName}</span>
+                <span class="details-category-tag">${categoryLabel}</span>
+                ${isFeatured ? `<span class="details-featured-tag"><i class="fa-solid fa-star"></i> ${featuredLabel}</span>` : ""}
+            </div>
         <div class="details-info">
             <div class="details-meta-top">
                 <span class="details-lang-tag">${langValName}</span>
