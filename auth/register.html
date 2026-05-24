@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="app-root" content="..">
+  <title>إنشاء حساب — dm</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../assets/logo.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
+</head>
+<body class="auth-body">
+  <main class="auth-page">
+    <div class="auth-shell">
+      <a class="auth-back" href="../index.html"><i class="fa-solid fa-arrow-right"></i> العودة للرئيسية</a>
+
+      <div class="auth-brand">
+        <img src="../assets/logo.png" alt="dm bookstore" width="96" height="96">
+        <h1>dm<span style="color:var(--brand-gold)">.</span></h1>
+        <p>انضم إلينا وابدأ رحلتك مع الكتب</p>
+      </div>
+
+      <div class="auth-card uiglass uiglass-strong">
+        <h2>إنشاء حساب جديد</h2>
+        <div id="authMessage" class="auth-message" hidden></div>
+        <form id="registerForm" onsubmit="authSignUp(event)" novalidate>
+          <label for="regName">الاسم الكامل (اختياري)</label>
+          <input id="regName" type="text" autocomplete="name" placeholder="اسمك كما تريد ظهوره">
+
+          <label for="regEmail">البريد الإلكتروني</label>
+          <input id="regEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+
+          <label for="regPassword">كلمة المرور</label>
+          <input id="regPassword" type="password" required autocomplete="new-password" placeholder="6 أحرف على الأقل" minlength="6">
+
+          <div class="auth-actions">
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-user-check"></i> إنشاء الحساب</button>
+            <a class="btn btn-outline" href="login.html"><i class="fa-solid fa-right-to-bracket"></i> تسجيل دخول</a>
+          </div>
+        </form>
+        <p class="auth-note">بإنشاء الحساب فأنت توافق على <a href="../terms.html">الشروط</a> و<a href="../privacy.html">الخصوصية</a>.</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

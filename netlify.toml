@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+
+[headers]
+  for = "/*"
+    [headers.values]
+      X-Content-Type-Options = "nosniff"
+      X-Frame-Options = "DENY"
+      Referrer-Policy = "strict-origin-when-cross-origin"
+      Permissions-Policy = "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), accelerometer=()"
+      Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+      Content-Security-Policy = "default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self'; frame-ancestors 'none'"

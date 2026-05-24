@@ -1,0 +1,8 @@
+{
+  "covers": [
+    "assets/books/cover-1.jpg",
+    "assets/books/cover-2.jpg",
+    "assets/books/cover-3.jpg"
+  ],
+  "note": "ضع صور أغلفة بأسماء cover-1.jpg و cover-2.jpg و cover-3.jpg (أو عدّل المسارات هنا)"
+}

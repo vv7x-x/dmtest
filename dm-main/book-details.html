@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://vjibucksajumamngxcku.supabase.co" crossorigin>
+    <title>dm | تفاصيل الكتاب</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <a href="index.html" class="logo" id="headerLogo">
+                <div class="logo-icon"><img src="assets/logo.png" alt="dm"></div>
+                <div class="logo-text">dm<span>.</span></div>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" id="navHome">الرئيسية</a></li>
+                <li><a href="index.html#catalog" id="navCatalog">كتالوج الكتب</a></li>
+                <li><a href="contact.html" id="navContact">تواصل معنا</a></li>
+                <li><a href="auth/login.html" id="navLogin">تسجيل دخول</a></li>
+                <li><a href="auth/register.html" id="navRegister">تسجيل جديد</a></li>
+                <li><a href="account/profile.html" id="navAccount">حسابي</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <!-- Lang Switcher -->
+                <button class="lang-switch-btn" id="langSwitch" onclick="toggleLanguage()">EN</button>
+                
+                <!-- Wishlist Toggle -->
+                <button class="action-btn" id="wishlistToggleBtn" onclick="toggleWishlistDrawer(true)">
+                    <i class="fa-regular fa-heart"></i>
+                    <span class="badge" id="wishlistBadge">0</span>
+                </button>
+
+                <!-- Cart Toggle -->
+                <button class="action-btn" id="cartToggleBtn" onclick="toggleCartDrawer(true)">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content">
+        <a href="index.html#catalog" class="btn btn-secondary" style="margin-bottom: 30px; display: inline-flex; align-items: center; gap: 8px; color: var(--walnut); border-color: rgba(197, 150, 58, 0.3);" id="btnBack">
+            <i class="fa-solid fa-arrow-right" id="backArrowIcon"></i> <span id="backBtnText">العودة للكتالوج</span>
+        </a>
+
+        <!-- Book Details Container -->
+        <div class="details-container" id="detailsContainer">
+            <div style="grid-column: 1/-1; text-align: center; padding: 60px; color: var(--ink-muted);" id="loadingText">
+                <i class="fa-solid fa-spinner fa-spin fa-2x" style="color: var(--gold);"></i>
+                <p style="margin-top: 10px;">جاري تحميل تفاصيل الكتاب...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Cart Drawer -->
+    <div class="drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer(false)"></div>
+    <div class="drawer" id="cartDrawer">
+        <div class="drawer-header">
+            <h3><i class="fa-solid fa-bag-shopping" style="color: var(--gold);"></i> <span id="cartDrawerTitle">سلة المشتريات</span></h3>
+            <button class="drawer-close" onclick="toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-body" id="cartItemsContainer">
+            <!-- Dynamic Cart Items -->
+        </div>
+        <div class="drawer-footer">
+            <div class="drawer-summary-row">
+                <span id="labelSubtotal">الإجمالي الفرعي:</span>
+                <span class="drawer-summary-total" id="cartSubtotal">0 <span>ج.م</span></span>
+            </div>
+            <a href="checkout.html" class="btn btn-primary drawer-btn" id="btnCheckout">
+                <i class="fa-solid fa-credit-card"></i> إتمام الشراء
+            </a>
+        </div>
+    </div>
+
+    <!-- Wishlist Drawer -->
+    <div class="drawer-overlay" id="wishlistOverlay" onclick="toggleWishlistDrawer(false)"></div>
+    <div class="drawer" id="wishlistDrawer">
+        <div class="drawer-header">
+            <h3><i class="fa-regular fa-heart" style="color: var(--danger);"></i> <span id="wishlistDrawerTitle">قائمة الأمنيات</span></h3>
+            <button class="drawer-close" onclick="toggleWishlistDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="drawer-body" id="wishlistItemsContainer">
+            <!-- Dynamic Wishlist Items -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="margin-bottom: 24px; display: inline-flex;">
+                    <div class="logo-icon" style="width: 40px; height: 40px; font-size: 16px;"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="logo-text" style="color: var(--cream); font-size: 26px;">dm<span style="color: var(--gold);">.</span></div>
+                </a>
+                <p id="footerAbout">بوابتك لعالم المعرفة والقصص الملهمة. نوفر تشكيلة مميزة من الكتب العربية والإنجليزية التي تُثري عقول القراء في جميع أنحاء الوطن العربي.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/dmbookstore/" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/201559215694" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://facebook.com/" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 id="footerQuickLinks">روابط سريعة</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html" id="footerLinkHome">الرئيسية</a></li>
+                    <li><a href="index.html#catalog" id="footerLinkCatalog">كتالوج الكتب</a></li>
+                    <li><a href="contact.html" id="footerLinkContact">تواصل معنا</a></li>
+                    <li><a href="auth/login.html" id="footerLinkLogin">تسجيل دخول</a></li>
+                    <li><a href="auth/register.html" id="footerLinkRegister">تسجيل جديد</a></li>
+                    <li><a href="terms.html" id="footerLinkTerms">الشروط والأحكام</a></li>
+                    <li><a href="privacy.html" id="footerLinkPrivacy">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 id="footerCategoriesTitle">التصنيفات</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#catalog" onclick="selectCategory('novels')" id="footerCatNovels">روايات</a></li>
+                    <li><a href="index.html#catalog" onclick="selectCategory('religious')" id="footerCatRel">كتب دينية</a></li>
+                    <li><a href="index.html#catalog" onclick="selectCategory('self-development')" id="footerCatSelf">تنمية بشرية</a></li>
+                    <li><a href="index.html#catalog" onclick="selectCategory('children')" id="footerCatChild">كتب أطفال</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 id="footerContactTitle">تواصل معنا</h4>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>support@dm-books.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+20 100 000 0000</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span id="footerLocation">القاهرة، جمهورية مصر العربية</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p id="footerCopyright">© 2026 مكتبة dm. جميع الحقوق محفوظة.</p>
+            <p id="footerCOD" style="color: var(--gold); font-weight: 700;"><i class="fa-solid fa-truck-fast"></i> الدفع عند الاستلام في جميع المحافظات</p>
+        </div>
+    </footer>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase Config -->
+    <script src="js/supabase-config.js"></script>
+    <script src="js/books-store.js"></script>
+    <script src="js/session.js"></script>
+    <!-- Details page logic -->
+    <script src="js/details.js"></script>
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

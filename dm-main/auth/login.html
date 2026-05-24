@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="app-root" content="..">
+  <title>تسجيل الدخول — dm</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../../assets/logo.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
+</head>
+<body class="auth-body">
+  <main class="auth-page">
+    <div class="auth-shell">
+      <a class="auth-back" href="../index.html"><i class="fa-solid fa-arrow-right"></i> العودة للرئيسية</a>
+
+      <div class="auth-brand">
+        <img src="../assets/logo.png" alt="dm bookstore" width="96" height="96">
+        <h1>dm<span style="color:var(--brand-gold)">.</span></h1>
+        <p>مرحباً بعودتك — سجّل دخولك لمتابعة طلباتك</p>
+      </div>
+
+      <div class="auth-card uiglass uiglass-strong">
+        <h2>تسجيل الدخول</h2>
+        <div id="authMessage" class="auth-message" hidden></div>
+        <form id="loginForm" onsubmit="authSignIn(event)" novalidate>
+          <label for="loginEmail">البريد الإلكتروني</label>
+          <input id="loginEmail" type="email" required autocomplete="email" placeholder="you@example.com">
+
+          <label for="loginPassword">كلمة المرور</label>
+          <input id="loginPassword" type="password" required autocomplete="current-password" placeholder="أدخل كلمة المرور" minlength="6">
+
+          <div class="auth-actions">
+            <button class="btn btn-primary" type="submit"><i class="fa-solid fa-right-to-bracket"></i> دخول</button>
+            <a class="btn btn-outline" href="register.html"><i class="fa-solid fa-user-plus"></i> إنشاء حساب</a>
+          </div>
+        </form>
+        <p class="auth-note"><a href="reset-password.html">نسيت كلمة المرور؟</a></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

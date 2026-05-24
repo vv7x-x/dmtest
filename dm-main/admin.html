@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>dm | لوحة تحكم الأدمن المطورة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="icon" type="image/png" href="../assets/logo.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
+</head>
+<body class="admin-body">
+  <main class="admin-root">
+
+    <!-- ================= حالة تسجيل الدخول ================= -->
+    <section id="adminLoginState" class="admin-login-wrap">
+      <div class="admin-login-card uiglass-admin">
+        <a href="index.html" class="admin-login-back"><i class="fa-solid fa-arrow-right"></i> العودة للمتجر</a>
+        <div class="admin-login-brand">
+          <img src="assets/logo.png" alt="dm" width="80" height="80">
+          <h1>dm<span>.</span> Admin</h1>
+          <p>لوحة إدارة المتجر</p>
+        </div>
+        <h2 id="loginTitle">تسجيل دخول المشرف</h2>
+        <div id="adminLoginMessage" class="admin-login-message" hidden></div>
+        <form id="adminLoginForm" onsubmit="loginAdmin(event)">
+          <div class="form-group">
+            <label for="adminEmail" id="lblAdminEmail">البريد الإلكتروني</label>
+            <input id="adminEmail" type="email" required autocomplete="email" placeholder="admin@dm.com">
+          </div>
+          <div class="form-group">
+            <label for="adminPassword" id="lblAdminPassword">كلمة المرور</label>
+            <input id="adminPassword" type="password" required autocomplete="current-password" placeholder="••••••••">
+          </div>
+          <button id="btnLoginSubmit" class="btn btn-primary btn-block" type="submit">
+            <i class="fa-solid fa-right-to-bracket"></i> دخول لوحة التحكم
+          </button>
+        </form>
+        <details class="admin-setup-hint">
+          <summary><i class="fa-solid fa-circle-info"></i> أول مرة؟ إعداد المشرف</summary>
+          <p>1) سجّل حساباً من <a href="auth/register.html">صفحة التسجيل</a></p>
+          <p>2) في Supabase → SQL Editor شغّل <code>supabase/admin-fix.sql</code></p>
+          <p>3) أضف UUID المستخدم:</p>
+          <pre>INSERT INTO public.admin_users (user_id)
+SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
+        </details>
+      </div>
+    </section>
+
+    <!-- ================= لوحة التحكم الرئيسية ================= -->
+    <section id="adminDashboardState" class="admin-layout" style="display:none;">
+      <!-- القائمة الجانبية -->
+      <aside class="admin-sidebar">
+        <div class="admin-sidebar-title">
+          <img src="assets/logo.png" alt="" class="admin-sidebar-logo">
+          <span id="sidebarTitle">لوحة التحكم dm</span>
+        </div>
+        <ul class="admin-nav">
+          <li class="admin-nav-item active" id="tabBtnOrders">
+            <button type="button" onclick="switchTab('orders')"><i class="fa-solid fa-receipt"></i> <span id="btnTabOrdersText">الطلبات الواردة</span></button>
+          </li>
+          <li class="admin-nav-item" id="tabBtnBooks">
+            <button type="button" onclick="switchTab('books')"><i class="fa-solid fa-book"></i> <span id="btnTabBooksText">إدارة الكتب</span></button>
+          </li>
+          <li class="admin-nav-spacer"></li>
+          <li><a href="index.html" class="admin-nav-link"><i class="fa-solid fa-store"></i> المتجر</a></li>
+          <li><button type="button" class="btn btn-outline btn-sidebar" onclick="openAddBookModal()" id="btnAddBookBtn"><i class="fa-solid fa-plus"></i> إضافة كتاب</button></li>
+          <li><button type="button" class="btn btn-secondary btn-sidebar" onclick="logoutAdmin()" id="btnAdminLogoutText"><i class="fa-solid fa-arrow-right-from-bracket"></i> تسجيل خروج</button></li>
+        </ul>
+      </aside>
+
+      <!-- محتوى لوحة التحكم -->
+      <div class="admin-content">
+        
+        <!-- قسم الطلبات الواردة -->
+        <div id="paneOrders" class="admin-pane">
+          <div class="admin-pane-header admin-card">
+            <div>
+              <h3 id="ordersPaneTitle">الطلبات الواردة</h3>
+              <p id="ordersCount" class="admin-stat">العدد: 0</p>
+            </div>
+            <div class="admin-actions-group" style="display: flex; gap: 10px;">
+              <button type="button" class="btn btn-success" onclick="exportOrdersToCSV()"><i class="fa-solid fa-file-csv"></i> تصدير تقرير</button>
+              <button type="button" class="btn btn-outline" onclick="loadOrders()"><i class="fa-solid fa-rotate"></i> تحديث</button>
+            </div>
+          </div>
+
+          <!-- شريط الفلترة والبحث للطلبات (جديد) -->
+          <div class="admin-filter-bar admin-card" style="margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; min-width: 200px; margin: 0;">
+              <input type="text" id="searchOrdersInput" placeholder="بحث باسم العميل أو الهاتف..." oninput="filterOrders()">
+            </div>
+            <div class="form-group" style="min-width: 150px; margin: 0;">
+              <select id="filterOrderStatus" onchange="filterOrders()">
+                <option value="all">كل الحالات</option>
+                <option value="pending">قيد الانتظار</option>
+                <option value="processing">جاري التجهيز</option>
+                <option value="completed">تم التوصيل</option>
+                <option value="cancelled">ملغي</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-table-container admin-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th id="thCustomerName">العميل</th>
+                  <th id="thPhone">الهاتف</th>
+                  <th id="thGov">المحافظة</th>
+                  <th id="thDate">التاريخ</th>
+                  <th id="thTotal">الإجمالي</th>
+                  <th id="thStatus">الحالة</th>
+                  <th id="thActions">إجراءات</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- انيميشن تحميل افتراضي -->
+                <tr class="table-loading-row"><td colspan="7" style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الطلبات...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- قسم إدارة الكتب -->
+        <div id="paneBooks" class="admin-pane" style="display:none;">
+          <div class="admin-pane-header admin-card">
+            <h3 id="booksPaneTitle">إدارة الكتب</h3>
+            <button type="button" class="btn btn-primary" onclick="openAddBookModal()"><i class="fa-solid fa-plus"></i> <span id="btnAddBookBtn2">كتاب جديد</span></button>
+          </div>
+
+          <!-- شريط تصفية وبحث الكتب (جديد) -->
+          <div class="admin-filter-bar admin-card" style="margin-bottom: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+            <div class="form-group" style="flex: 1; min-width: 200px; margin: 0;">
+              <input type="text" id="searchBooksInput" placeholder="بحث عن كتاب أو كاتب..." oninput="filterBooks()">
+            </div>
+            <div class="form-group" style="min-width: 150px; margin: 0;">
+              <select id="filterBookCategory" onchange="filterBooks()">
+                <option value="all">كل التصنيفات</option>
+                <option value="novels">روايات</option>
+                <option value="religious">كتب دينية</option>
+                <option value="self-development">تنمية بشرية</option>
+                <option value="children">كتب أطفال</option>
+                <option value="science">علوم وتكنولوجيا</option>
+                <option value="history">تاريخ وسير</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-table-container admin-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th id="thBookCover">الغلاف</th>
+                  <th id="thBookTitle">العنوان</th>
+                  <th id="thBookAuthor">الكاتب</th>
+                  <th id="thBookCat">التصنيف</th>
+                  <th id="thBookLang">اللغة</th>
+                  <th id="thBookPrice">السعر</th>
+                  <th id="thBookStock">التوفر</th>
+                  <th id="thBookActions">حذف</th>
+                </tr>
+              </thead>
+              <tbody id="booksTableBody">
+                <!-- انيميشن تحميل افتراضي -->
+                <tr class="table-loading-row"><td colspan="8" style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الكتب...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= مودال: إضافة كتاب جديد ================= -->
+    <div class="modal" id="addBookModal">
+      <div class="modal-content admin-card">
+        <div class="modal-header">
+          <h3 id="addBookModalTitle">إضافة كتاب جديد</h3>
+          <button type="button" onclick="closeAddBookModal()" class="modal-close" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="addBookForm" onsubmit="submitNewBook(event)">
+          <div class="modal-body">
+            <div class="form-group"><label id="lblBookTitleInput">عنوان الكتاب *</label><input id="bookTitleInput" required></div>
+            <div class="form-row">
+              <div class="form-group"><label id="lblBookAuthorInput">اسم الكاتب *</label><input id="bookAuthorInput" required></div>
+              <div class="form-group"><label id="lblBookPriceInput">السعر (ج.م) *</label><input id="bookPriceInput" type="number" step="0.01" min="0" required></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label id="lblBookCategoryInput">التصنيف *</label>
+                <select id="bookCategoryInput" required>
+                  <option value="novels">روايات</option>
+                  <option value="religious">كتب دينية</option>
+                  <option value="self-development">تنمية بشرية</option>
+                  <option value="children">كتب أطفال</option>
+                  <option value="science">علوم وتكنولوجيا</option>
+                  <option value="history">تاريخ وسير</option>
+                </select>
+              </div>
+              <div class="form-group"><label id="lblBookLanguageInput">اللغة *</label>
+                <select id="bookLanguageInput" required>
+                  <option value="ar">العربية</option>
+                  <option value="en">English</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label id="lblBookDescInput">الوصف</label><textarea id="bookDescInput" rows="3"></textarea></div>
+            <div class="form-group"><label id="lblBookCoverUpload">صورة الغلاف (اختياري — تُرفع بالخلفية)</label>
+              <div class="image-upload-wrapper" onclick="triggerFileInput()">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <p id="uploadPromptText">اضغط لاختيار صورة — تُضغط تلقائياً للرفع السريع</p>
+                <p id="coverCompressHint" class="cover-compress-hint" hidden></p>
+                <input type="file" id="bookCoverFile" accept="image/jpeg,image/png,image/webp" style="display:none;" onchange="previewImage(event)">
+                <img id="bookCoverPreview" class="image-preview" src="#" alt="" style="display:none;">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" onclick="closeAddBookModal()" id="btnCancelBook">إلغاء</button>
+            <button type="submit" class="btn btn-primary" id="btnSubmitBook">حفظ وإضافة</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= مودال: تفاصيل الطلب ================= -->
+    <div class="modal" id="orderDetailsModal">
+      <div class="modal-content admin-card" style="max-width:750px;">
+        <div class="modal-header">
+          <h3 id="orderDetailsModalTitle">تفاصيل الطلب</h3>
+          <button type="button" onclick="closeOrderDetailsModal()" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="order-detail-grid">
+            <div>
+              <h4 id="orderCustInfoTitle">بيانات العميل</h4>
+              <p><strong id="lblDetName">الاسم:</strong> <span id="detCustName">-</span></p>
+              <p><strong id="lblDetPhone">الهاتف:</strong> <a id="detCustPhone" href="#">-</a></p>
+              <p><strong id="lblDetGov">المحافظة:</strong> <span id="detCustGov">-</span></p>
+              <p><strong id="lblDetAddress">العنوان:</strong> <span id="detCustAddress">-</span></p>
+              <p><strong id="lblDetNotes">ملاحظات:</strong> <span id="detCustNotes">-</span></p>
+            </div>
+            <div>
+              <h4 id="orderStatusTitle">حالة الطلب</h4>
+              <div class="form-group">
+                <label id="lblDetStatusSelect">تحديث الحالة</label>
+                <select id="detOrderStatusSelect" onchange="updateOrderStatus()">
+                  <option value="pending">قيد الانتظار</option>
+                  <option value="processing">جاري التجهيز</option>
+                  <option value="completed">تم التوصيل</option>
+                  <option value="cancelled">ملغي</option>
+                </select>
+              </div>
+              <p><strong id="lblDetDate">التاريخ:</strong> <span id="detOrderDate">-</span></p>
+            </div>
+          </div>
+          <div class="details-divider"></div>
+          <h4 id="orderItemsTitle">الكتب المطلوبة</h4>
+          <div class="admin-table-container">
+            <table class="admin-table admin-table-compact">
+              <thead>
+                <tr>
+                  <th id="thDetBookTitle">الكتاب</th>
+                  <th id="thDetQty">الكمية</th>
+                  <th id="thDetUnitPrice">السعر</th>
+                  <th id="thDetSubtotal">الإجمالي</th>
+                </tr>
+              </thead>
+              <tbody id="detOrderItemsBody"></tbody>
+            </table>
+          </div>
+          <div class="order-totals-box">
+            <div><span id="lblDetSubtotalPrice">الكتب:</span> <span id="detSubtotalPrice">0</span></div>
+            <div><span id="lblDetShippingPrice">الشحن:</span> <span id="detShippingPrice">0</span></div>
+            <div class="order-totals-total"><span id="lblDetTotalPrice">الإجمالي:</span> <span id="detTotalPrice">0</span></div>
+          </div>
+        </div>
+        <div class="modal-footer modal-footer-split">
+          <button type="button" class="btn btn-danger" onclick="deleteOrder()" id="btnDeleteOrder"><i class="fa-solid fa-trash-can"></i> حذف الطلب</button>
+          <button type="button" class="btn btn-primary" onclick="closeOrderDetailsModal()" id="btnSaveOrderDet">إغلاق</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- السكربتات الخارجية -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/api-guard.js"></script>
+  <script src="js/books-store.js"></script>
+  <script src="js/image-utils.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

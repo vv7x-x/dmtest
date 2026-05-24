@@ -1,0 +1,3 @@
+-- ⚠️ هذا الملف لم يعد مستخدماً.
+-- شغّل بدلاً منه: supabase/backend-fix.sql
+-- (يتضمن place_order + إصلاح RLS + صلاحيات Storage)

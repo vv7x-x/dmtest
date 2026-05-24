@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="app-root" content="..">
+  <title>طلباتي — dm</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../../assets/logo.png">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
+</head>
+<body>
+  <header id="mainHeader">
+    <div class="header-container">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon"><img src="../assets/logo.png" alt="dm"></div>
+        <div class="logo-text">dm<span>.</span></div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="../index.html" id="navHome">الرئيسية</a></li>
+        <li><a href="../index.html#catalog" id="navCatalog">كتالوج الكتب</a></li>
+        <li><a href="../contact.html" id="navContact">تواصل معنا</a></li>
+        <li><a href="../auth/login.html" id="navLogin">تسجيل دخول</a></li>
+        <li><a href="../auth/register.html" id="navRegister">تسجيل جديد</a></li>
+        <li><a href="profile.html" id="navAccount">حسابي</a></li>
+      </ul>
+
+      <div class="header-actions"></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h2>طلباتي</h2>
+    <div id="userOrders"></div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/session.js"></script>
+  <script src="../js/auth.js"></script>
+</body>
+</html>

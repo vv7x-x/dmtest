@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dm | إتمام الشراء</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="../assets/logo.png">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="mainHeader">
+        <div class="header-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"><img src="assets/logo.png" alt="dm"></div>
+                <div class="logo-text">dm<span>.</span></div>
+            </a>
+            
+            <ul class="nav-links">
+                <li><a href="index.html" id="navHome">الرئيسية</a></li>
+                <li><a href="index.html#catalog" id="navCatalog">كتالوج الكتب</a></li>
+                <li><a href="contact.html" id="navContact">تواصل معنا</a></li>
+                <li><a href="auth/login.html" id="navLogin">تسجيل دخول</a></li>
+                <li><a href="auth/register.html" id="navRegister">تسجيل جديد</a></li>
+                <li><a href="account/profile.html" id="navAccount">حسابي</a></li>
+            </ul>
+
+            <div class="header-actions">
+                <button class="lang-switch-btn" id="langSwitch" onclick="toggleLanguage()">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-content" id="checkoutMain">
+        
+        <!-- Standard Checkout State -->
+        <div id="checkoutFormState">
+            <a href="index.html" class="btn btn-secondary" style="margin-bottom: 30px; display: inline-flex; align-items: center; gap: 8px; color: var(--walnut); border-color: rgba(197, 150, 58, 0.3);" id="btnBack">
+                <i class="fa-solid fa-arrow-right" id="backArrowIcon"></i> <span id="backBtnText">العودة للتسوق</span>
+            </a>
+
+            <div class="checkout-grid">
+                <!-- Shipping Form -->
+                <div class="checkout-card uiglass">
+                    <h3 id="shippingTitle">تفاصيل الشحن والتوصيل</h3>
+                    
+                    <form id="shippingForm" onsubmit="handleCheckoutSubmit(event)">
+                        <div class="form-group">
+                            <label for="fullName" id="lblFullName">الاسم الكامل للعميل *</label>
+                            <input type="text" id="fullName" required placeholder="أدخل اسمك ثلاثي أو رباعي">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" id="lblPhone">رقم الهاتف (أساسي للتأكيد) *</label>
+                            <input type="tel" id="phone" required placeholder="مثال: 01000000000">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="governorate" id="lblGovernorate">المحافظة *</label>
+                                <select id="governorate" required onchange="calculateShipping()">
+                                    <option value="" disabled selected id="optSelectGov">اختر المحافظة</option>
+                                    <option value="cairo">القاهرة</option>
+                                    <option value="giza">الجيزة</option>
+                                    <option value="alexandria">الإسكندرية</option>
+                                    <option value="delta">الدلتا والقناة (طنطا، المنصورة، السويس...)</option>
+                                    <option value="upper">الصعيد (المنيا، أسيوط، سوهاج...)</option>
+                                    <option value="remote">المناطق النائية (البحر الأحمر، مطروح...)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address" id="lblAddress">العنوان بالتفصيل *</label>
+                                <input type="text" id="address" required placeholder="الشارع، رقم المبنى، الدور، الشقة">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="notes" id="lblNotes">ملاحظات إضافية (اختياري)</label>
+                            <textarea id="notes" rows="3" placeholder="مواعيد التوصيل المفضلة، علامة مميزة..."></textarea>
+                        </div>
+                        
+                        <div class="payment-method-box">
+                            <i class="fa-solid fa-money-bill-wave"></i>
+                            <div>
+                                <div id="lblPaymentTitle">الدفع عند الاستلام (COD)</div>
+                                <div style="font-size:12px; font-weight:normal; opacity:0.8;" id="lblPaymentDesc">ستقوم بالدفع نقداً لمندوب الشحن فور استلام طلبك.</div>
+                            </div>
+                        </div>
+                        
+                        <div id="checkoutMessage" class="auth-message" hidden role="alert"></div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; height: 52px; font-size: 17px;" id="btnPlaceOrder">
+                            <i class="fa-solid fa-circle-check"></i> تأكيد الطلب وإرسال
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="checkout-card uiglass">
+                    <h3 id="summaryTitle" style="color: var(--walnut); border-bottom-color: rgba(197, 150, 58, 0.15);">ملخص طلبك</h3>
+                    
+                    <div id="checkoutSummaryItems" style="max-height: 250px; overflow-y: auto; margin-bottom: 20px; padding-right: 8px;">
+                        <!-- Dynamic items -->
+                    </div>
+                    
+                    <div class="checkout-summary-item">
+                        <span id="lblSubtotal">الإجمالي الفرعي:</span>
+                        <span id="summarySubtotal" style="font-weight:700; color: var(--walnut);">0 ج.م</span>
+                    </div>
+                    
+                    <div class="checkout-summary-item">
+                        <span id="lblShipping">تكلفة التوصيل:</span>
+                        <span id="summaryShipping" style="font-weight:700; color: var(--walnut);">0 ج.م</span>
+                    </div>
+                    
+                    <div class="checkout-summary-item checkout-summary-total">
+                        <span id="lblTotal">الإجمالي الكلي:</span>
+                        <span id="summaryTotal">0 ج.م</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success State (Hidden initially) -->
+        <div id="checkoutSuccessState" style="display: none;">
+            <div class="order-success-box">
+                <div class="success-icon">
+                    <i class="fa-solid fa-check"></i>
+                </div>
+                <h2 id="successTitle">تم إرسال طلبك بنجاح!</h2>
+                <p id="successDesc">شكراً لتسوقك من dm. لقد تم تسجيل طلبك وسيتواصل معك فريق خدمة العملاء قريباً جداً لتأكيد الشحن وتوصيله إلى عنوانك.</p>
+                
+                <div style="background: var(--parchment); padding: 16px 20px; border-radius: var(--r-md); margin-bottom: 30px; text-align: left; direction: ltr; border: 1px dashed rgba(197, 150, 58, 0.3);">
+                    <div style="font-size:12px; color:var(--ink-light); text-align:center;" id="successOrderIDLabel">ORDER ID:</div>
+                    <div style="font-size:16px; font-weight:800; color:var(--walnut); text-align:center; margin-top:4px;" id="successOrderID">-</div>
+                </div>
+                
+                <a href="index.html" class="btn btn-primary" id="successHomeBtn">
+                    <i class="fa-solid fa-house"></i> العودة للرئيسية
+                </a>
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <a href="index.html" class="logo" style="margin-bottom: 24px; display: inline-flex;">
+                    <div class="logo-icon" style="width: 40px; height: 40px; font-size: 16px;"><i class="fa-solid fa-book-open"></i></div>
+                    <div class="logo-text" style="color: var(--cream); font-size: 26px;">dm<span style="color: var(--gold);">.</span></div>
+                </a>
+                <p id="footerAbout">بوابتك لعالم المعرفة والقصص الملهمة. نوفر تشكيلة مميزة من الكتب العربية والإنجليزية التي تُثري عقول القراء في جميع أنحاء الوطن العربي.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/dmbookstore/" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/201559215694" target="_blank" class="social-icon"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="https://facebook.com/" target="_blank" class="social-icon"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4 id="footerQuickLinks">روابط سريعة</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html" id="footerLinkHome">الرئيسية</a></li>
+                    <li><a href="index.html#catalog" id="footerLinkCatalog">كتالوج الكتب</a></li>
+                    <li><a href="contact.html" id="footerLinkContact">تواصل معنا</a></li>
+                    <li><a href="auth/login.html" id="footerLinkLogin">تسجيل دخول</a></li>
+                    <li><a href="auth/register.html" id="footerLinkRegister">تسجيل جديد</a></li>
+                    <li><a href="terms.html" id="footerLinkTerms">الشروط والأحكام</a></li>
+                    <li><a href="privacy.html" id="footerLinkPrivacy">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 id="footerCategoriesTitle">التصنيفات</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#catalog" id="footerCatNovels">روايات</a></li>
+                    <li><a href="index.html#catalog" id="footerCatRel">كتب دينية</a></li>
+                    <li><a href="index.html#catalog" id="footerCatSelf">تنمية بشرية</a></li>
+                    <li><a href="index.html#catalog" id="footerCatChild">كتب أطفال</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 id="footerContactTitle">تواصل معنا</h4>
+                <div class="footer-contact">
+                    <div class="contact-item">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>support@dm-books.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+20 100 000 0000</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span id="footerLocation">القاهرة، جمهورية مصر العربية</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p id="footerCopyright">© 2026 مكتبة dm. جميع الحقوق محفوظة.</p>
+            <p id="footerCOD" style="color: var(--gold); font-weight: 700;"><i class="fa-solid fa-truck-fast"></i> الدفع عند الاستلام في جميع المحافظات</p>
+        </div>
+    </footer>
+
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase Config -->
+    <script src="js/supabase-config.js"></script>
+    <script src="js/session.js"></script>
+    <!-- Checkout page logic -->
+    <script src="js/checkout.js"></script>
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>
