@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <title>تواصل معنا — dm</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header id="mainHeader">
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><img src="assets/logo.png" alt="dm"></div>
+        <div class="logo-text">dm<span>.</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" id="navHome">الرئيسية</a></li>
+        <li><a href="catalog.html" id="navCatalog">كتالوج الكتب</a></li>
+        <li><a href="contact.html" class="active" id="navContact">تواصل معنا</a></li>
+        <li><a href="auth/login.html" id="navLogin">تسجيل دخول</a></li>
+        <li><a href="auth/register.html" id="navRegister">تسجيل جديد</a></li>
+        <li><a href="account/profile.html" id="navAccount">حسابي</a></li>
+      </ul>
+      <div class="header-actions">
+        <button class="lang-switch-btn" id="langSwitch" onclick="toggleLanguage()">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="app-content">
+  <section class="page-hero">
+    <h1>تواصل معنا</h1>
+    <p>نسعد باستفساراتك واقتراحاتك. فريق dm يرد في أقرب وقت.</p>
+  </section>
+
+  <div class="page-grid">
+    <div class="content-card uiglass">
+      <h3><i class="fa-solid fa-headset" style="color:var(--gold)"></i> بيانات التواصل</h3>
+      <ul class="contact-info-list">
+        <li><i class="fa-solid fa-envelope"></i><div><strong>البريد</strong><br>mt.amr@proton.me</div></li>
+        <li><i class="fa-solid fa-phone"></i><div><strong>الهاتف / واتساب</strong><br><a href="https://wa.me/201559215694" target="_blank">+20 155 921 5694</a></div></li>
+        <li><i class="fa-brands fa-instagram"></i><div><strong>إنستغرام</strong><br><a href="https://www.instagram.com/dmbookstore/" target="_blank">@dmbookstore</a></div></li>
+        <li><i class="fa-solid fa-location-dot"></i><div><strong>العنوان</strong><br>القاهرة، جمهورية مصر العربية</div></li>
+      </ul>
+      <p style="margin-top:20px; font-size:13px; color:var(--ink-muted);"><i class="fa-solid fa-truck-fast" style="color:var(--gold)"></i> الدفع عند الاستلام في جميع المحافظات</p>
+    </div>
+
+    <div class="content-card uiglass contact-form">
+      <h3><i class="fa-solid fa-paper-plane" style="color:var(--gold)"></i> أرسل رسالة</h3>
+      <div id="contactMessage" class="auth-message" hidden></div>
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="contactName">الاسم</label>
+          <input id="contactName" type="text" required placeholder="اسمك الكامل">
+        </div>
+        <div class="form-group">
+          <label for="contactEmail">البريد الإلكتروني</label>
+          <input id="contactEmail" type="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="contactBody">الرسالة</label>
+          <textarea id="contactBody" required placeholder="اكتب استفسارك أو اقتراحك..."></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> إرسال الرسالة</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-col">
+        <a href="index.html" class="logo" style="margin-bottom: 24px; display: inline-flex;">
+          <div class="logo-icon" style="width: 40px; height: 40px;"><img src="assets/logo.png" alt="dm"></div>
+          <div class="logo-text" style="color: var(--cream); font-size: 26px;">dm<span style="color: var(--gold);">.</span></div>
+        </a>
+        <p>بوابتك لعالم المعرفة والقصص الملهمة.</p>
+      </div>
+      <div class="footer-col">
+        <h4>روابط سريعة</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="auth/login.html">تسجيل دخول</a></li>
+          <li><a href="terms.html">الشروط</a></li>
+          <li><a href="privacy.html">الخصوصية</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 مكتبة dm. جميع الحقوق محفوظة.</p>
+      <p style="margin-top:4px;font-size:13px;color:var(--text-muted);">المطور: <a href="https://www.instagram.com/idk_yahia_/" target="_blank" rel="noopener noreferrer" style="color:var(--gold);font-weight:700;text-decoration:none;">يحيى رضا</a></p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/crypto-utils.js"></script>
+  <script src="js/security.js"></script>
+  <script src="js/session.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "dmbooks",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "protect": "node scripts/protect.js",
+    "build": "npm run protect"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.1",
+    "html-minifier": "^4.0.0",
+    "clean-css": "^5.3.2"
+  }
+}
