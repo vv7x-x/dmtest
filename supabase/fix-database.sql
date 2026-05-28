@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS public.books (
   language text DEFAULT 'ar',
   description text,
   image_url text,
+  is_best_seller boolean DEFAULT false,
   in_stock boolean DEFAULT true,
   created_at timestamptz DEFAULT now()
 );

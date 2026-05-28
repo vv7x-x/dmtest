@@ -6,15 +6,72 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link rel="preconnect" href="https://vjibucksajumamngxcku.supabase.co" crossorigin>
     <link rel="dns-prefetch" href="https://vjibucksajumamngxcku.supabase.co">
-    <title>dm | متجر الكتب الأول</title>
-    <!-- FontAwesome for Icons -->
+    <title>dm | كتالوج الكتب</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        .catalog-hero {
+            background: linear-gradient(135deg, var(--walnut-dark) 0%, var(--walnut) 50%, var(--forest) 100%);
+            padding: 60px 20px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .catalog-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(197,150,58,0.12), transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(255,255,255,0.04), transparent 40%);
+            pointer-events: none;
+        }
+        .catalog-hero h1 {
+            color: var(--cream);
+            font-size: 36px;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .catalog-hero h1 span { color: var(--gold); }
+        .catalog-hero p {
+            color: rgba(245,241,230,0.65);
+            font-size: 16px;
+            position: relative;
+        }
+        .catalog-hero .hero-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 16px;
+            position: relative;
+        }
+        .catalog-hero .hero-ornament i {
+            color: var(--gold);
+            opacity: 0.5;
+        }
+        .catalog-hero .hero-ornament::before,
+        .catalog-hero .hero-ornament::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: rgba(197,150,58,0.3);
+        }
+        .catalog-section {
+            padding-top: 10px;
+        }
+        .catalog-book-count {
+            text-align: center;
+            color: var(--ink-muted);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .catalog-hero h1 { font-size: 26px; }
+            .catalog-hero { padding: 40px 16px 30px; }
+        }
+    </style>
 </head>
 <body>
-
-    <!-- Header -->
     <header id="mainHeader">
         <div class="header-container">
             <a href="index.html" class="logo" id="headerLogo">
@@ -22,9 +79,9 @@
                 <div class="logo-text">dm<span>.</span></div>
             </a>
             
-                <ul class="nav-links">
-                <li><a href="index.html" class="active" id="navHome">الرئيسية</a></li>
-                <li><a href="catalog.html" id="navCatalog">كتالوج الكتب</a></li>
+            <ul class="nav-links">
+                <li><a href="index.html" id="navHome">الرئيسية</a></li>
+                <li><a href="catalog.html" class="active" id="navCatalog">كتالوج الكتب</a></li>
                 <li><a href="contact.html" id="navContact">تواصل معنا</a></li>
                 <li><a href="auth/login.html" id="navLogin">تسجيل دخول</a></li>
                 <li><a href="auth/register.html" id="navRegister">تسجيل جديد</a></li>
@@ -32,16 +89,13 @@
             </ul>
 
             <div class="header-actions">
-                <!-- Lang Switcher -->
                 <button class="lang-switch-btn" id="langSwitch" onclick="toggleLanguage()">EN</button>
                 
-                <!-- Wishlist Toggle -->
                 <button class="action-btn" id="wishlistToggleBtn" onclick="toggleWishlistDrawer(true)">
                     <i class="fa-regular fa-heart"></i>
                     <span class="badge" id="wishlistBadge">0</span>
                 </button>
 
-                <!-- Cart Toggle -->
                 <button class="action-btn" id="cartToggleBtn" onclick="toggleCartDrawer(true)">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span class="badge" id="cartBadge">0</span>
@@ -50,65 +104,61 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-subtitle" id="heroSubtitle">
-                    <i class="fa-solid fa-star"></i> الوجهة الأولى لمحبي القراءة
-                </div>
-                <h1 id="heroTitle">اكتشف عالمك التالي بين <span>صفحات الكتب</span></h1>
-                <p id="heroDesc">مرحباً بك في متجر dm للكتب. نوفر لك تشكيلة مميزة من أروع الكتب العربية والإنجليزية المختارة بعناية لتناسب كل الأذواق، مع خدمة الدفع عند الاستلام والتوصيل السريع.</p>
-                <div class="hero-buttons">
-                    <a href="catalog.html" class="btn btn-primary" id="btnShopNow">
-                        <i class="fa-solid fa-compass"></i> تصفح الكتب
-                    </a>
-                    <a href="https://www.whatsapp.com/channel/0029VbCPnmo7oQhWCB2QTr3w?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="btn btn-whatsapp" id="btnWhatsApp">
-                        <i class="fa-brands fa-whatsapp"></i> قناة الواتساب
-                    </a>
-                    <a href="https://www.instagram.com/dmbookstore/" target="_blank" class="btn btn-instagram" id="btnInstagram">
-                        <i class="fa-brands fa-instagram"></i> تابعنا على إنستغرام
-                    </a>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-logo" aria-label="شعار متجر dm">
-                    <div class="hero-logo-glow"></div>
-                    <img src="assets/logo.png" alt="dm bookstore" width="300" height="300" fetchpriority="high">
-                </div>
-            </div>
+    <section class="catalog-hero">
+        <h1>اكتشف <span>كنوز المعرفة</span></h1>
+        <p>تصفح مجموعتنا المتنوعة من الكتب العربية والإنجليزية في جميع التصنيفات</p>
+        <div class="hero-ornament">
+            <i class="fa-solid fa-book-open"></i>
         </div>
     </section>
 
-    <!-- Best Sellers Section -->
-    <section class="bestsellers-section">
-        <div class="section-header">
-            <h2 id="sectionTitleText">الأكثر مبيعاً</h2>
-            <div class="section-ornament">
-                <i class="fa-solid fa-crown"></i>
+    <main class="main-content catalog-section">
+        <div class="controls-bar">
+            <div class="search-box">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="ابحث باسم الكتاب أو الكاتب..." oninput="filterBooksDebounced()">
             </div>
-        </div>
-        <div class="bestsellers-scroll" id="bestsellersContainer">
-            <!-- رجاء الانتظار... -->
-        </div>
-        <div class="bestsellers-cta">
-            <a href="catalog.html" class="btn btn-primary" id="btnBrowseAll">
-                <i class="fa-solid fa-books"></i> تصفح جميع الكتب
-            </a>
-        </div>
-    </section>
+            
+            <select class="filter-select" id="categoryFilter" onchange="filterBooks()">
+                <option value="all">جميع التصنيفات</option>
+                <option value="novels">روايات</option>
+                <option value="religious">كتب دينية</option>
+                <option value="self-development">تنمية بشرية</option>
+                <option value="children">كتب أطفال</option>
+                <option value="science">علوم وتكنولوجيا</option>
+                <option value="history">تاريخ وسير</option>
+                <option value="politics">سياسة</option>
+                <option value="philosophy">فكر وفلسفة</option>
+                <option value="psychology">علم نفس</option>
+                <option value="economics">اقتصاد وإدارة</option>
+                <option value="health">صحة وطب</option>
+            </select>
 
-    <!-- Cart Drawer -->
+            <select class="filter-select" id="languageFilter" onchange="filterBooks()">
+                <option value="all">كل اللغات</option>
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+            </select>
+
+            <select class="filter-select" id="sortBy" onchange="filterBooks()">
+                <option value="latest">الأكثر مبيعاً</option>
+                <option value="price-low">السعر: من الأقل للأعلى</option>
+                <option value="price-high">السعر: من الأعلى للأقل</option>
+            </select>
+        </div>
+
+        <div class="catalog-book-count" id="catalogBookCount"></div>
+
+        <div class="books-grid is-loading" id="booksGrid" aria-busy="true"></div>
+    </main>
+
     <div class="drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer(false)"></div>
     <div class="drawer" id="cartDrawer">
         <div class="drawer-header">
             <h3><i class="fa-solid fa-bag-shopping" style="color: var(--gold);"></i> <span id="cartDrawerTitle">سلة المشتريات</span></h3>
             <button class="drawer-close" onclick="toggleCartDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="drawer-body" id="cartItemsContainer">
-            <!-- Dynamic Cart Items -->
-        </div>
+        <div class="drawer-body" id="cartItemsContainer"></div>
         <div class="drawer-footer">
             <div class="drawer-summary-row">
                 <span id="labelSubtotal">الإجمالي الفرعي:</span>
@@ -120,19 +170,15 @@
         </div>
     </div>
 
-    <!-- Wishlist Drawer -->
     <div class="drawer-overlay" id="wishlistOverlay" onclick="toggleWishlistDrawer(false)"></div>
     <div class="drawer" id="wishlistDrawer">
         <div class="drawer-header">
             <h3><i class="fa-regular fa-heart" style="color: var(--danger);"></i> <span id="wishlistDrawerTitle">قائمة الأمنيات</span></h3>
             <button class="drawer-close" onclick="toggleWishlistDrawer(false)"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="drawer-body" id="wishlistItemsContainer">
-            <!-- Dynamic Wishlist Items -->
-        </div>
+        <div class="drawer-body" id="wishlistItemsContainer"></div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-col">
@@ -197,9 +243,7 @@
         </div>
     </footer>
 
-    <!-- Supabase JS Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- Supabase Config -->
     <script src="js/supabase-config.js"></script>
     <script src="js/crypto-utils.js"></script>
     <script src="js/api-guard.js"></script>
@@ -207,7 +251,6 @@
     <script src="js/session.js"></script>
     <script src="js/main.js"></script>
     <script>
-        // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('mainHeader');
             if (window.scrollY > 20) {
@@ -216,6 +259,31 @@
                 header.classList.remove('scrolled');
             }
         });
+
+        function updateBookCount() {
+            const countEl = document.getElementById('catalogBookCount');
+            const t = typeof translations !== 'undefined' ? translations[localStorage.getItem('lang') || 'ar'] : null;
+            if (countEl && typeof allBooks !== 'undefined') {
+                const visible = document.querySelectorAll('#booksGrid > .book-card').length;
+                const total = allBooks.length;
+                const lang = localStorage.getItem('lang') || 'ar';
+                if (lang === 'ar') {
+                    countEl.textContent = visible > 0 ? `عرض ${visible} من أصل ${total} كتاب` : `إجمالي ${total} كتاب في المكتبة`;
+                } else {
+                    countEl.textContent = visible > 0 ? `Showing ${visible} of ${total} books` : `${total} books in the library`;
+                }
+            }
+        }
+
+        const origRender = window.renderBooksGrid;
+        if (typeof origRender === 'function') {
+            const orig = window.renderBooksGrid;
+            window.renderBooksGrid = function() {
+                orig.apply(this, arguments);
+                setTimeout(updateBookCount, 50);
+            };
+        }
+        setTimeout(updateBookCount, 500);
     </script>
 </body>
 </html>

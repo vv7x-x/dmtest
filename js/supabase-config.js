@@ -20,13 +20,7 @@ function initSupabaseClient() {
     auth: {
       persistSession: true,
       autoRefreshToken: true,
-      detectSessionInUrl: true,
-      flowType: 'pkce'
-    },
-    global: {
-      headers: {
-        'X-Client-Info': 'dm-bookstore@1.0.0'
-      }
+      detectSessionInUrl: true
     }
   });
   window.supabaseClient = client;

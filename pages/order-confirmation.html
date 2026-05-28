@@ -3,12 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
   <meta name="app-root" content="..">
   <title>تم إنشاء الطلب — dm</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" type="image/png" href="../assets/logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
 </head>
 <body>
   <header id="mainHeader">
@@ -35,12 +34,26 @@
         <a href="../index.html" class="btn btn-primary"><i class="fa-solid fa-house"></i> الرئيسية</a>
         <a href="../account/orders.html" class="btn btn-outline"><i class="fa-solid fa-box"></i> طلباتي</a>
       </div>
+
+      <!-- WhatsApp Note -->
+      <div class="checkout-whatsapp-note" style="margin-top:24px;text-align:right;direction:rtl;">
+        <div class="whatsapp-note-icon"><i class="fa-brands fa-whatsapp"></i></div>
+        <div class="whatsapp-note-text">
+          <p>🎁 عايز تستعجل توصيل طلبك؟ أو تبعت كتاب كهدية (جيفت) لحد؟</p>
+          <p>تواصل معنا عالواتساب عشان نجهز طلبك بسرعة</p>
+          <a href="https://wa.me/201559215694" target="_blank" class="whatsapp-note-btn"><i class="fa-brands fa-whatsapp"></i> تواصل عبر واتساب</a>
+        </div>
+      </div>
     </div>
   </main>
 
   <script>
     const params = new URLSearchParams(location.search);
-    const orderId = params.get('order');
+    var orderId = params.get('o');
+    if (orderId && window.dmCrypto) {
+      orderId = dmCrypto.decryptParam(orderId);
+    }
+    if (!orderId) orderId = params.get('order');
     const el = document.getElementById('orderIdDisplay');
     if (orderId && el) {
       el.textContent = 'رقم الطلب: ' + orderId;
@@ -50,6 +63,7 @@
   </script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="../js/supabase-config.js"></script>
+  <script src="../js/crypto-utils.js"></script>
   <script src="../js/session.js"></script>
 </body>
 </html>

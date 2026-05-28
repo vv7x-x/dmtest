@@ -41,7 +41,13 @@ const translations = {
         catSelfDevelopment: "تنمية بشرية",
         catChildren: "كتب أطفال",
         catScience: "علوم وتكنولوجيا",
-        catHistory: "تاريخ وسير"
+        catHistory: "تاريخ وسير",
+        catPolitics: "سياسة",
+        catPhilosophy: "فكر وفلسفة",
+        catPsychology: "علم نفس",
+        catEconomics: "اقتصاد وإدارة",
+        catHealth: "صحة وطب",
+        discountLabel: "خصم"
     },
     en: {
         pageTitle: "dm | Book Details",
@@ -84,30 +90,34 @@ const translations = {
         catSelfDevelopment: "Self-Development",
         catChildren: "Children's Books",
         catScience: "Science & Tech",
-        catHistory: "History & Bio"
+        catHistory: "History & Bio",
+        catPolitics: "Politics",
+        catPhilosophy: "Philosophy",
+        catPsychology: "Psychology",
+        catEconomics: "Economics & Business",
+        catHealth: "Health & Medicine",
+        discountLabel: "Discount"
     }
 };
 
-function escapeHtml(str) {
-    return String(str || "")
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#x27;");
+function getFinalPrice(book) {
+    const price = parseFloat(book.price) || 0;
+    const discount = parseInt(book.discount_percentage) || 0;
+    if (discount > 0) return price * (1 - discount / 100);
+    return price;
 }
 
 let currentLang = localStorage.getItem("lang") || "ar";
 let bookId = "";
 let currentBook = null;
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+let cart = window.dmStorage ? dmStorage.get("cart", []) : JSON.parse(localStorage.getItem("cart") || "[]");
+let wishlist = window.dmStorage ? dmStorage.get("wishlist", []) : JSON.parse(localStorage.getItem("wishlist") || "[]");
 let chosenQty = 1;
 
 document.addEventListener("DOMContentLoaded", () => {
     // Parse URL parameter
     const urlParams = new URLSearchParams(window.location.search);
-    bookId = urlParams.get("id");
+    bookId = urlParams.get("d") && window.dmCrypto ? dmCrypto.decryptParam(urlParams.get("d")) : urlParams.get("id");
     
     applyLanguage(currentLang);
     
@@ -246,57 +256,52 @@ function renderBookDetails(book) {
     const isAr = book.language === "ar";
     const isOutOfStock = book.in_stock === false;
     
-    const escTitle = escapeHtml(book.title);
-    const escAuthor = escapeHtml(book.author);
-    const escDesc = escapeHtml(book.description || (currentLang === "ar" ? "لا يوجد وصف متوفر لهذا الكتاب حالياً." : "No description available for this book."));
-
+    // Cover Image
     let coverHtml = "";
     if (book.image_url) {
         const src = window.dmBooks
             ? window.dmBooks.bookCoverUrl(book.image_url, 560)
             : book.image_url;
-        coverHtml = `<img src="${src}" alt="${escapeHtml(book.title)}" width="280" height="400" loading="eager" decoding="async">`;
+        coverHtml = `<img src="${src}" alt="${book.title}" width="280" height="400" loading="eager" decoding="async">`;
     } else {
+        // Fallback Premium Cover
         coverHtml = `
         <div style="width: 260px; height: 380px; background: linear-gradient(135deg, var(--forest-light) 0%, var(--forest) 100%); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; color: #fff; box-shadow: 0 15px 30px rgba(26,18,16,0.3); border-left: 10px solid rgba(255,255,255,0.1); border-radius: 4px 12px 12px 4px;">
             <div style="width: 50px; height: 3px; background: var(--gold); margin-bottom: 20px;"></div>
-            <div style="font-size: 26px; font-weight: 800; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; text-align: center; margin-bottom:16px;">${escTitle}</div>
-            <div style="font-size: 16px; color: rgba(255,255,255,0.8); text-align: center;">${escAuthor}</div>
+            <div style="font-size: 26px; font-weight: 800; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; text-align: center; margin-bottom:16px;">${book.title}</div>
+            <div style="font-size: 16px; color: rgba(255,255,255,0.8); text-align: center;">${book.author}</div>
         </div>`;
     }
     
-    const isFeatured = book.is_featured === true;
-    const langValName = isAr ? t.arLangName : t.enLangName;
-    const categoryLabel = t["cat" + book.category.charAt(0).toUpperCase() + book.category.slice(1).replace("-", "")] || escapeHtml(book.category);
-    const featuredLabel = currentLang === "ar" ? "مميّز" : "Featured";
+    const categoryLabel = t["cat" + book.category.charAt(0).toUpperCase() + book.category.slice(1).replace("-", "")] || book.category;
     
     container.innerHTML = `
-        <div class="details-gallery${isFeatured ? " details-gallery--featured" : ""}">
-            ${isFeatured ? `<div class="details-featured-badge"><i class="fa-solid fa-star"></i> ${featuredLabel}</div>` : ""}
+        <div class="details-gallery">
             ${coverHtml}
         </div>
         <div class="details-info">
             <div class="details-meta-top">
-                <span class="details-lang-tag">${langValName}</span>
                 <span class="details-category-tag">${categoryLabel}</span>
-                ${isFeatured ? `<span class="details-featured-tag"><i class="fa-solid fa-star"></i> ${featuredLabel}</span>` : ""}
             </div>
             
-            <h1 class="details-title">${escTitle}</h1>
-            <div class="details-author">${t.authorLabel}${escAuthor}</div>
+            <h1 class="details-title">${book.title}</h1>
+            <div class="details-author">${t.authorLabel}${book.author}</div>
             
             <div class="details-divider"></div>
             
-            <div class="details-price">${escapeHtml(book.price)} <span>${t.currency}</span></div>
+            ${function() {
+                const discount = parseInt(book.discount_percentage) || 0;
+                if (discount > 0) {
+                    const fp = getFinalPrice(book);
+                    return `<div class="details-price"><span style="text-decoration:line-through;color:var(--ink-muted);font-size:18px;font-weight:600;margin-left:10px;">${book.price} ${t.currency}</span><span style="color:var(--danger);font-size:28px;">${fp.toFixed(2)}</span> <span>${t.currency}</span> <span class="details-discount-tag"><i class="fa-solid fa-tag"></i> ${t.discountLabel} ${discount}%</span></div>`;
+                }
+                return `<div class="details-price">${book.price} <span>${t.currency}</span></div>`;
+            }()}
             
             <h3 class="details-desc-title">${t.detailsDescTitle}</h3>
-            <p class="details-desc">${escDesc}</p>
+            <p class="details-desc">${book.description || (currentLang === "ar" ? "لا يوجد وصف متوفر لهذا الكتاب حالياً." : "No description available for this book.")}</p>
             
             <div class="details-specs">
-                <div class="spec-item">
-                    <span class="spec-label">${t.specLanguage}</span>
-                    <span class="spec-val">${langValName}</span>
-                </div>
                 <div class="spec-item">
                     <span class="spec-label">${t.specCategory}</span>
                     <span class="spec-val">${categoryLabel}</span>
@@ -322,7 +327,7 @@ function renderBookDetails(book) {
                 </button>
                 `}
                 
-                <button class="details-wishlist-btn ${inWishlist ? 'active' : ''}" onclick="toggleWishlist()" title="${escapeHtml(t.wishlistDrawerTitle)}">
+                <button class="details-wishlist-btn ${inWishlist ? 'active' : ''}" onclick="toggleWishlist()" title="${t.wishlistDrawerTitle}">
                     <i class="${inWishlist ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
                 </button>
             </div>
@@ -340,6 +345,8 @@ function updateChosenQty(delta) {
 function buyBook() {
     if (!currentBook) return;
     
+    const finalPrice = getFinalPrice(currentBook);
+    
     const existing = cart.find(item => item.id === currentBook.id);
     if (existing) {
         existing.quantity += chosenQty;
@@ -349,12 +356,14 @@ function buyBook() {
             quantity: chosenQty,
             title: currentBook.title,
             author: currentBook.author,
-            price: currentBook.price,
+            price: finalPrice,
+            originalPrice: currentBook.price,
+            discount_percentage: currentBook.discount_percentage || 0,
             image_url: currentBook.image_url
         });
     }
     
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (window.dmStorage) dmStorage.set("cart", cart); else localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     renderCart();
     toggleCartDrawer(true);
@@ -380,7 +389,7 @@ function toggleWishlist() {
         });
     }
     
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    if (window.dmStorage) dmStorage.set("wishlist", wishlist); else localStorage.setItem("wishlist", JSON.stringify(wishlist));
     updateWishlistCount();
     renderWishlist();
     
@@ -419,7 +428,7 @@ function updateWishlistCount() {
 
 function removeFromCart(bookId) {
     cart = cart.filter(item => item.id !== bookId);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (window.dmStorage) dmStorage.set("cart", cart); else localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     renderCart();
 }
@@ -432,7 +441,7 @@ function updateCartQty(bookId, delta) {
     if (item.quantity <= 0) {
         removeFromCart(bookId);
     } else {
-        localStorage.setItem("cart", JSON.stringify(cart));
+        if (window.dmStorage) dmStorage.set("cart", cart); else localStorage.setItem("cart", JSON.stringify(cart));
         updateCartCount();
         renderCart();
     }
@@ -496,7 +505,7 @@ function toggleWishlistItem(bookId) {
     if (existingIndex > -1) {
         wishlist.splice(existingIndex, 1);
     }
-    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    if (window.dmStorage) dmStorage.set("wishlist", wishlist); else localStorage.setItem("wishlist", JSON.stringify(wishlist));
     updateWishlistCount();
     renderWishlist();
     if (currentBook && currentBook.id === bookId) {
@@ -565,7 +574,7 @@ function buyBookFromWishlist(bookId) {
         });
     }
     
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (window.dmStorage) dmStorage.set("cart", cart); else localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
     renderCart();
     toggleCartDrawer(true);

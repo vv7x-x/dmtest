@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!logoutBtn) {
           logoutBtn = document.createElement('a');
           logoutBtn.id = 'navLogout';
-          logoutBtn.href = 'javascript:void(0)';
+          logoutBtn.href = '#';
           logoutBtn.className = 'nav-logout-link';
           logoutBtn.innerHTML = '<i class="fa-solid fa-right-from-bracket"></i> خروج';
           logoutBtn.addEventListener('click', async (ev) => {

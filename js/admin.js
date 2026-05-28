@@ -56,6 +56,9 @@ const translations = {
         thBookCat: "التصنيف",
         thBookLang: "اللغة",
         thBookPrice: "السعر",
+        thBookBestSeller: "الأكثر مبيعاً",
+        bestSellerYes: "نعم",
+        bestSellerNo: "لا",
         thBookStock: "التوفر",
         thBookActions: "حذف",
         addBookModalTitle: "إضافة كتاب جديد",
@@ -120,9 +123,75 @@ const translations = {
         catChildren: "كتب أطفال",
         catScience: "علوم وتكنولوجيا",
         catHistory: "تاريخ وسير",
+        catPolitics: "سياسة",
+        catPhilosophy: "فكر وفلسفة",
+        catPsychology: "علم نفس",
+        catEconomics: "اقتصاد وإدارة",
+        catHealth: "صحة وطب",
         
         arLangName: "العربية",
         enLangName: "الإنجليزية",
+        btnTabStatsText: "الإحصائيات",
+        btnTabEmailText: "إعدادات الإيميل",
+        emailPaneTitle: "إعدادات الإشعارات البريدية",
+        emailPaneDesc: "هذه الإعدادات تُمكّن إرسال إيميلات فورية للأدمن عند وصول طلب جديد أو رسالة تواصل — حتى لو كان الموقع مقفول.",
+        lblAdminEmailInput: "البريد الإلكتروني للأدمن (يستقبل الإشعارات)",
+        lblSupabaseUrlInput: "Supabase Project URL",
+        lblSupabaseAnonKeyInput: "Supabase Anon Key",
+        anonKeyHint: "من Supabase Dashboard → Settings → API → anon public key",
+        btnSaveEmailSettings: "<i class='fa-solid fa-floppy-disk'></i> حفظ الإعدادات",
+        btnTestEmail: "<i class='fa-solid fa-paper-plane'></i> إرسال إيميل تجريبي",
+        emailSettingsSaved: "تم حفظ الإعدادات ✅",
+        emailSettingsError: "فشل حفظ الإعدادات",
+        emailTestSent: "تم إرسال الإيميل التجريبي ✅",
+        emailTestError: "فشل إرسال الإيميل التجريبي",
+        statsPaneTitle: "لوحة الإحصائيات",
+        btnRefreshStats: "تحديث",
+        statLabelRevenue: "إجمالي الإيرادات",
+        statLabelTotalOrders: "إجمالي الطلبات",
+        statLabelCompletedOrders: "الطلبات المكتملة",
+        statLabelTotalBooks: "إجمالي الكتب",
+        statLabelBooksSold: "الكتب المباعة",
+        statLabelPendingOrders: "طلبات معلقة",
+        searchOrdersPlaceholder: "بحث باسم العميل أو الهاتف...",
+        searchBooksPlaceholder: "بحث عن كتاب أو كاتب...",
+        optStatusAll: "كل الحالات",
+        optStatusPending: "قيد الانتظار",
+        optStatusProcessing: "جاري التجهيز",
+        optStatusCompleted: "تم التوصيل",
+        optStatusCancelled: "ملغي",
+        optBookCatAll: "كل التصنيفات",
+        optBookCatNovels: "روايات",
+        optBookCatReligious: "كتب دينية",
+        optBookCatSelf: "تنمية بشرية",
+        optBookCatChildren: "كتب أطفال",
+        optBookCatScience: "علوم وتكنولوجيا",
+        optBookCatHistory: "تاريخ وسير",
+        optBookCatPolitics: "سياسة",
+        optBookCatPhilosophy: "فكر وفلسفة",
+        optBookCatPsychology: "علم نفس",
+        optBookCatEconomics: "اقتصاد وإدارة",
+        optBookCatHealth: "صحة وطب",
+        optBookCatPhilosophy: "فكر وفلسفة",
+        optBookCatPsychology: "علم نفس",
+        optBookCatEconomics: "اقتصاد وإدارة",
+        optBookCatHealth: "صحة وطب",
+        optModalCatNovels: "روايات",
+        optModalCatReligious: "كتب دينية",
+        optModalCatSelf: "تنمية بشرية",
+        optModalCatChildren: "كتب أطفال",
+        optModalCatScience: "علوم وتكنولوجيا",
+        optModalCatHistory: "تاريخ وسير",
+        optModalCatPolitics: "سياسة",
+        optModalCatPhilosophy: "فكر وفلسفة",
+        optModalCatPsychology: "علم نفس",
+        optModalCatEconomics: "اقتصاد وإدارة",
+        optModalCatHealth: "صحة وطب",
+        lblBookDiscountInput: "نسبة الخصم (%)",
+        thBookDiscount: "الخصم",
+        btnPrintInvoiceText: "طباعة الفاتورة",
+        discountLabel: "خصم",
+        noDiscount: "بدون خصم",
         inStock: "متوفر",
         outOfStock: "غير متوفر",
         
@@ -135,7 +204,20 @@ const translations = {
         footerContactTitle: "تواصل معنا",
         footerLocation: "القاهرة، جمهورية مصر العربية",
         footerCopyright: "© 2026 مكتبة dm. جميع الحقوق محفوظة.",
-        footerCOD: "<i class='fa-solid fa-truck-fast'></i> الدفع عند الاستلام في جميع المحافظات"
+        footerCOD: "<i class='fa-solid fa-truck-fast'></i> الدفع عند الاستلام في جميع المحافظات",
+        btnTabNotificationsText: "الإشعارات",
+        notifPanelTitle: "الإشعارات",
+        notifMarkAllText: "تحديد الكل كمقروء",
+        notifEmptyText: "لا توجد إشعارات جديدة",
+        notifNewOrderTitle: "طلب جديد",
+        notifNewContactTitle: "رسالة جديدة",
+        notifJustNow: "الآن",
+        notifMinutesAgo: "منذ دقيقة",
+        notifMinutesAgoPlural: "منذ {n} دقائق",
+        notifHoursAgo: "منذ ساعة",
+        notifHoursAgoPlural: "منذ {n} ساعات",
+        notifDaysAgo: "منذ يوم",
+        notifDaysAgoPlural: "منذ {n} أيام"
     },
     en: {
         pageTitle: "dm | Admin Dashboard",
@@ -193,6 +275,9 @@ const translations = {
         thBookCat: "Category",
         thBookLang: "Language",
         thBookPrice: "Price",
+        thBookBestSeller: "Best Seller",
+        bestSellerYes: "Yes",
+        bestSellerNo: "No",
         thBookStock: "Availability",
         thBookActions: "Delete",
         addBookModalTitle: "Add New Book",
@@ -257,9 +342,62 @@ const translations = {
         catChildren: "Children's Books",
         catScience: "Science & Tech",
         catHistory: "History & Bio",
+        catPolitics: "Politics",
+        catPhilosophy: "Philosophy",
+        catPsychology: "Psychology",
+        catEconomics: "Economics & Business",
+        catHealth: "Health & Medicine",
         
         arLangName: "Arabic",
         enLangName: "English",
+        btnTabStatsText: "Statistics",
+        statsPaneTitle: "Dashboard Statistics",
+        btnRefreshStats: "Refresh",
+        statLabelRevenue: "Total Revenue",
+        statLabelTotalOrders: "Total Orders",
+        statLabelCompletedOrders: "Completed Orders",
+        statLabelTotalBooks: "Total Books",
+        statLabelBooksSold: "Books Sold",
+        statLabelPendingOrders: "Pending Orders",
+        searchOrdersPlaceholder: "Search by customer name or phone...",
+        searchBooksPlaceholder: "Search by book title or author...",
+        optStatusAll: "All Statuses",
+        optStatusPending: "Pending",
+        optStatusProcessing: "Processing",
+        optStatusCompleted: "Completed",
+        optStatusCancelled: "Cancelled",
+        optBookCatAll: "All Categories",
+        optBookCatNovels: "Novels",
+        optBookCatReligious: "Religious",
+        optBookCatSelf: "Self-Development",
+        optBookCatChildren: "Children's Books",
+        optBookCatScience: "Science & Tech",
+        optBookCatHistory: "History & Bio",
+        optBookCatPolitics: "Politics",
+        optBookCatPhilosophy: "Philosophy",
+        optBookCatPsychology: "Psychology",
+        optBookCatEconomics: "Economics & Business",
+        optBookCatHealth: "Health & Medicine",
+        optBookCatPhilosophy: "Philosophy",
+        optBookCatPsychology: "Psychology",
+        optBookCatEconomics: "Economics & Business",
+        optBookCatHealth: "Health & Medicine",
+        optModalCatNovels: "Novels",
+        optModalCatReligious: "Religious",
+        optModalCatSelf: "Self-Development",
+        optModalCatChildren: "Children's Books",
+        optModalCatScience: "Science & Tech",
+        optModalCatHistory: "History & Bio",
+        optModalCatPolitics: "Politics",
+        optModalCatPhilosophy: "Philosophy",
+        optModalCatPsychology: "Psychology",
+        optModalCatEconomics: "Economics & Business",
+        optModalCatHealth: "Health & Medicine",
+        lblBookDiscountInput: "Discount (%)",
+        thBookDiscount: "Discount",
+        btnPrintInvoiceText: "Print Invoice",
+        discountLabel: "Discount",
+        noDiscount: "No Discount",
         inStock: "In Stock",
         outOfStock: "Out of Stock",
         
@@ -272,7 +410,33 @@ const translations = {
         footerContactTitle: "Contact Us",
         footerLocation: "Cairo, Egypt",
         footerCopyright: "© 2026 dm Bookstore. All rights reserved.",
-        footerCOD: "<i class='fa-solid fa-truck-fast'></i> Cash on Delivery available nationwide"
+        footerCOD: "<i class='fa-solid fa-truck-fast'></i> Cash on Delivery available nationwide",
+        btnTabNotificationsText: "Notifications",
+        notifPanelTitle: "Notifications",
+        notifMarkAllText: "Mark all as read",
+        notifEmptyText: "No new notifications",
+        notifNewOrderTitle: "New Order",
+        notifNewContactTitle: "New Message",
+        notifJustNow: "Just now",
+        notifMinutesAgo: "1 min ago",
+        notifMinutesAgoPlural: "{n} mins ago",
+        notifHoursAgo: "1 hour ago",
+        notifHoursAgoPlural: "{n} hours ago",
+        notifDaysAgo: "1 day ago",
+        notifDaysAgoPlural: "{n} days ago",
+        btnTabEmailText: "Email Settings",
+        emailPaneTitle: "Email Notification Settings",
+        emailPaneDesc: "Configure email notifications so the admin receives instant alerts for new orders and contact messages — even when the site is closed.",
+        lblAdminEmailInput: "Admin Email (receives notifications)",
+        lblSupabaseUrlInput: "Supabase Project URL",
+        lblSupabaseAnonKeyInput: "Supabase Anon Key",
+        anonKeyHint: "From Supabase Dashboard → Settings → API → anon public key",
+        btnSaveEmailSettings: "<i class='fa-solid fa-floppy-disk'></i> Save Settings",
+        btnTestEmail: "<i class='fa-solid fa-paper-plane'></i> Send Test Email",
+        emailSettingsSaved: "Settings saved ✅",
+        emailSettingsError: "Failed to save settings",
+        emailTestSent: "Test email sent ✅",
+        emailTestError: "Failed to send test email"
     }
 };
 
@@ -396,6 +560,11 @@ function applyLanguage(lang) {
         if (el) el.innerHTML = text;
     };
 
+    const safeSetPlaceholder = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.placeholder = text;
+    };
+
     safeSetText("navHome", t.navHome);
     safeSetText("navCatalog", t.navCatalog);
     safeSetText("navAdmin", t.navAdmin);
@@ -496,6 +665,73 @@ function applyLanguage(lang) {
         catSelect.options[4].text = t.catScience;
         catSelect.options[5].text = t.catHistory;
     }
+    
+    // Translate order status filter
+    const statusFilter = document.getElementById("filterOrderStatus");
+    if (statusFilter) {
+        const statusOptions = ["all", "pending", "processing", "completed", "cancelled"];
+        const statusOptIds = ["optStatusAll", "optStatusPending", "optStatusProcessing", "optStatusCompleted", "optStatusCancelled"];
+        statusOptions.forEach((val, i) => {
+            const opt = statusFilter.querySelector(`option[value="${val}"]`);
+            if (opt) opt.textContent = t[statusOptIds[i]];
+        });
+    }
+    
+    // Translate book category filter
+    const bookCatFilter = document.getElementById("filterBookCategory");
+    if (bookCatFilter) {
+        const catOptIds = ["optBookCatAll", "optBookCatNovels", "optBookCatReligious", "optBookCatSelf", "optBookCatChildren", "optBookCatScience", "optBookCatHistory", "optBookCatPolitics", "optBookCatPhilosophy", "optBookCatPsychology", "optBookCatEconomics", "optBookCatHealth"];
+        bookCatFilter.querySelectorAll("option").forEach((opt, i) => {
+            if (opt && catOptIds[i]) opt.textContent = t[catOptIds[i]];
+        });
+    }
+    
+    // Translate modal category select
+    const modalCatSelect = document.getElementById("bookCategoryInput");
+    if (modalCatSelect) {
+        const modalCatOptIds = ["optModalCatNovels", "optModalCatReligious", "optModalCatSelf", "optModalCatChildren", "optModalCatScience", "optModalCatHistory", "optModalCatPolitics", "optModalCatPhilosophy", "optModalCatPsychology", "optModalCatEconomics", "optModalCatHealth"];
+        modalCatSelect.querySelectorAll("option").forEach((opt, i) => {
+            if (opt && modalCatOptIds[i]) opt.textContent = t[modalCatOptIds[i]];
+        });
+    }
+    
+    // Translate search placeholders
+    safeSetPlaceholder("searchOrdersInput", t.searchOrdersPlaceholder);
+    safeSetPlaceholder("searchBooksInput", t.searchBooksPlaceholder);
+    
+    // Stats tab translations
+    safeSetText("btnTabStatsText", t.btnTabStatsText);
+    safeSetText("statsPaneTitle", t.statsPaneTitle);
+    safeSetText("btnRefreshStats", t.btnRefreshStats);
+    safeSetText("statLabelRevenue", t.statLabelRevenue);
+    safeSetText("statLabelTotalOrders", t.statLabelTotalOrders);
+    safeSetText("statLabelCompletedOrders", t.statLabelCompletedOrders);
+    safeSetText("statLabelTotalBooks", t.statLabelTotalBooks);
+    safeSetText("statLabelBooksSold", t.statLabelBooksSold);
+    safeSetText("statLabelPendingOrders", t.statLabelPendingOrders);
+    
+    // Book modal translations
+    safeSetText("lblBookDiscountInput", t.lblBookDiscountInput);
+    safeSetText("thBookDiscount", t.thBookDiscount);
+    safeSetText("thBookBestSeller", t.thBookBestSeller);
+    safeSetText("btnPrintInvoiceText", t.btnPrintInvoiceText);
+
+    // Notification translations
+    safeSetText("btnTabNotificationsText", t.btnTabNotificationsText);
+    safeSetText("notifPanelTitle", t.notifPanelTitle);
+    safeSetText("notifMarkAllText", t.notifMarkAllText);
+    safeSetText("notifEmptyText", t.notifEmptyText);
+    
+    // Email Settings translations
+    safeSetText("btnTabEmailText", t.btnTabEmailText);
+    safeSetText("emailPaneTitle", t.emailPaneTitle);
+    safeSetText("emailPaneDesc", t.emailPaneDesc);
+    safeSetText("lblAdminEmailInput", t.lblAdminEmailInput);
+    safeSetText("lblSupabaseUrlInput", t.lblSupabaseUrlInput);
+    safeSetText("lblSupabaseAnonKeyInput", t.lblSupabaseAnonKeyInput);
+    safeSetText("anonKeyHint", t.anonKeyHint);
+    safeSetText("btnSaveEmailSettings", t.btnSaveEmailSettings);
+    safeSetText("btnTestEmail", t.btnTestEmail);
 }
 
 async function checkAuthSession() {
@@ -658,13 +894,19 @@ function switchTab(tab) {
     document.getElementById("tabBtnOrders").classList.toggle("active", tab === "orders");
     document.getElementById("tabBtnBooks").classList.toggle("active", tab === "books");
     document.getElementById("tabBtnGovernorates").classList.toggle("active", tab === "governorates");
+    document.getElementById("tabBtnStats").classList.toggle("active", tab === "stats");
+    document.getElementById("tabBtnEmailSettings").classList.toggle("active", tab === "email-settings");
     document.getElementById("paneOrders").style.display = tab === "orders" ? "block" : "none";
     document.getElementById("paneBooks").style.display = tab === "books" ? "block" : "none";
     document.getElementById("paneGovernorates").style.display = tab === "governorates" ? "block" : "none";
+    document.getElementById("paneStats").style.display = tab === "stats" ? "block" : "none";
+    document.getElementById("paneEmailSettings").style.display = tab === "email-settings" ? "block" : "none";
     
     if (tab === "orders") loadOrders();
     else if (tab === "books") loadBooks();
     else if (tab === "governorates") loadGovernorates();
+    else if (tab === "stats") loadDashboardStats();
+    else if (tab === "email-settings") loadEmailSettings();
 }
 
 // ---------------------------
@@ -1106,7 +1348,7 @@ async function loadBooks() {
     const t = translations[currentLang];
     if (!tbody) return;
 
-    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">${t.loading}</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;">${t.loading}</td></tr>`;
     showAdminDashboardAlert("");
 
     try {
@@ -1124,7 +1366,7 @@ async function loadBooks() {
             normalized.message ||
             (currentLang === "ar" ? "خطأ في تحميل الكتب." : "Failed to load books.");
         showAdminDashboardAlert(msg, "error");
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--danger);">${msg}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color:var(--danger);">${msg}</td></tr>`;
     }
 }
 
@@ -1147,7 +1389,7 @@ function renderBooksTable(booksToRender = currentBooks) {
     const t = translations[currentLang];
     
     if (booksToRender.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; color:var(--text-light); padding:20px;">${t.noSearchResults}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="11" style="text-align:center; color:var(--text-light); padding:20px;">${t.noSearchResults}</td></tr>`;
         return;
     }
     
@@ -1169,6 +1411,13 @@ function renderBooksTable(booksToRender = currentBooks) {
         
         const categoryLabel = t["cat" + book.category.charAt(0).toUpperCase() + book.category.slice(1).replace("-", "")] || book.category;
         
+        const discount = parseInt(book.discount_percentage) || 0;
+        const discountDisplay = discount > 0 
+            ? `<span style="color:var(--danger);font-weight:700;font-size:13px;">-${discount}%</span>` 
+            : `<span style="color:var(--ink-muted);font-size:12px;">${t.noDiscount}</span>`;
+        
+        const isBestSeller = book.is_best_seller === true;
+        
         return `
         <tr>
             <td>${coverHtml}</td>
@@ -1177,6 +1426,12 @@ function renderBooksTable(booksToRender = currentBooks) {
             <td>${categoryLabel}</td>
             <td>${isAr ? t.arLangName : t.enLangName}</td>
             <td style="font-weight:800;">${book.price} ${t.currency}</td>
+            <td style="text-align:center;">${discountDisplay}</td>
+            <td style="text-align:center;">
+                <button class="status-badge" style="background:${isBestSeller ? 'var(--gold)' : 'var(--bg-secondary, #eee)'}; color:${isBestSeller ? '#fff' : 'var(--ink-muted)'}; cursor:pointer; min-width:40px;" onclick="toggleBestSeller('${book.id}', ${isBestSeller})">
+                    ${isBestSeller ? `<i class="fa-solid fa-star"></i>` : `<i class="fa-regular fa-star"></i>`}
+                </button>
+            </td>
             <td>
                 <button class="status-badge" style="background:${inStockVal ? 'var(--success-light, #d4edda)' : 'var(--danger-light, #f8d7da)'}; color:${inStockVal ? 'var(--success)' : 'var(--danger)'}; cursor:pointer;" onclick="toggleBookStock('${book.id}', ${inStockVal})">
                     ${inStockVal ? t.inStock : t.outOfStock}
@@ -1211,6 +1466,23 @@ async function toggleBookStock(bookId, currentVal) {
     } catch (err) {
         const msg = window.dmApiGuard?.normalizeError?.(err)?.message || "Error";
         console.error("[admin] toggleBookStock:", err);
+        showAdminDashboardAlert(msg, "error");
+    }
+}
+
+async function toggleBestSeller(bookId, currentVal) {
+    try {
+        await adminRun("admin.books.bestseller", () =>
+            getSb().from("books").update({ is_best_seller: !currentVal }).eq("id", bookId)
+        );
+        const book = currentBooks.find(b => b.id === bookId);
+        if (book) book.is_best_seller = !currentVal;
+        filterBooks();
+        window.dmBooks?.clearCache?.();
+        localStorage.setItem("dm_books_cache_time", "0");
+    } catch (err) {
+        const msg = window.dmApiGuard?.normalizeError?.(err)?.message || "Error";
+        console.error("[admin] toggleBestSeller:", err);
         showAdminDashboardAlert(msg, "error");
     }
 }
@@ -1287,6 +1559,7 @@ function openEditBookModal(bookId) {
     document.getElementById("bookCategoryInput").value = book.category || "novels";
     document.getElementById("bookLanguageInput").value = book.language || "ar";
     document.getElementById("bookDescInput").value = book.description || "";
+    document.getElementById("bookDiscountInput").value = book.discount_percentage || 0;
 
     document.getElementById("bookCoverFile").required = false;
 
@@ -1375,6 +1648,7 @@ async function addBook() {
     const category = document.getElementById("bookCategoryInput").value;
     const language = document.getElementById("bookLanguageInput").value;
     const description = document.getElementById("bookDescInput").value.trim();
+    const discount = parseInt(document.getElementById("bookDiscountInput").value) || 0;
     const fileInput = document.getElementById("bookCoverFile");
     const rawFile = fileInput.files[0];
 
@@ -1390,7 +1664,7 @@ async function addBook() {
         const { data: inserted } = await adminRun("admin.books.insert", () =>
             getSb()
                 .from("books")
-                .insert([{ title, author, price, category, language, description, image_url: null, in_stock: true }])
+                .insert([{ title, author, price, category, language, description, discount_percentage: discount, image_url: null, in_stock: true }])
                 .select()
                 .single()
         );
@@ -1440,6 +1714,7 @@ async function updateBook(bookId) {
     const category = document.getElementById("bookCategoryInput").value;
     const language = document.getElementById("bookLanguageInput").value;
     const description = document.getElementById("bookDescInput").value.trim();
+    const discount = parseInt(document.getElementById("bookDiscountInput").value) || 0;
     const fileInput = document.getElementById("bookCoverFile");
     const rawFile = fileInput.files[0];
 
@@ -1459,6 +1734,7 @@ async function updateBook(bookId) {
             category,
             language,
             description,
+            discount_percentage: discount,
         };
 
         const { error: updateError } = await getSb()
@@ -1503,6 +1779,7 @@ async function updateBook(bookId) {
             updatedBook.category = category;
             updatedBook.language = language;
             updatedBook.description = description;
+            updatedBook.discount_percentage = discount;
         }
 
         localStorage.setItem("dm_books_cache_time", "0");
@@ -1676,6 +1953,550 @@ async function deleteOrder() {
         console.error("[admin] deleteOrder:", err);
         alert(window.dmApiGuard?.normalizeError?.(err)?.message || "Error");
     }
+}
+
+async function loadDashboardStats() {
+    const t = translations[currentLang];
+    try {
+        // Total revenue from completed orders (book prices only, no shipping)
+        const { data: revenueData } = await adminRun("admin.stats.revenue", () =>
+            getSb().from("orders").select("total_price, shipping_cost").eq("status", "completed")
+        );
+        const totalRevenue = (revenueData || []).reduce((sum, o) => sum + (parseFloat(o.total_price || 0) - parseFloat(o.shipping_cost || 0)), 0);
+        
+        // Total orders
+        const { count: totalOrders } = await adminRun("admin.stats.totalOrders", () =>
+            getSb().from("orders").select("*", { count: "exact", head: true })
+        );
+        
+        // Completed orders
+        const { count: completedOrders } = await adminRun("admin.stats.completedOrders", () =>
+            getSb().from("orders").select("*", { count: "exact", head: true }).eq("status", "completed")
+        );
+        
+        // Pending orders
+        const { count: pendingOrders } = await adminRun("admin.stats.pendingOrders", () =>
+            getSb().from("orders").select("*", { count: "exact", head: true }).eq("status", "pending")
+        );
+        
+        // Total books in DB
+        const { count: totalBooks } = await adminRun("admin.stats.totalBooks", () =>
+            getSb().from("books").select("*", { count: "exact", head: true })
+        );
+        
+        // Books sold (sum of quantities in order_items)
+        const { data: soldData } = await adminRun("admin.stats.booksSold", () =>
+            getSb().from("order_items").select("quantity")
+        );
+        const booksSold = (soldData || []).reduce((sum, item) => sum + (item.quantity || 0), 0);
+        
+        // Update UI
+        document.getElementById("statTotalRevenue").innerHTML = `${totalRevenue.toFixed(2)} <span>${t.currency}</span>`;
+        document.getElementById("statTotalOrders").innerText = totalOrders || 0;
+        document.getElementById("statCompletedOrders").innerText = completedOrders || 0;
+        document.getElementById("statPendingOrders").innerText = pendingOrders || 0;
+        document.getElementById("statTotalBooks").innerText = totalBooks || 0;
+        document.getElementById("statBooksSold").innerText = booksSold;
+        
+        const now = new Date().toLocaleDateString(currentLang === "ar" ? "ar-EG" : "en-US", {
+            year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"
+        });
+        document.getElementById("statsLastUpdate").innerText = `${currentLang === "ar" ? "آخر تحديث:" : "Last updated:"} ${now}`;
+    } catch (err) {
+        const normalized = window.dmApiGuard?.normalizeError ? window.dmApiGuard.normalizeError(err) : err;
+        console.error("[admin] loadDashboardStats:", normalized);
+        showAdminDashboardAlert(normalized.message || "Error loading stats", "error");
+    }
+}
+
+function printInvoice() {
+    if (!selectedOrderId) return;
+    const t = translations[currentLang];
+    const order = currentOrders.find(o => o.id === selectedOrderId);
+    if (!order) return;
+    
+    const orderDate = new Date(order.created_at).toLocaleDateString(currentLang === "ar" ? "ar-EG" : "en-US", {
+        year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit"
+    });
+    
+    let statusText = t.statusPending;
+    if (order.status === "processing") statusText = t.statusProcessing;
+    else if (order.status === "completed") statusText = t.statusCompleted;
+    else if (order.status === "cancelled") statusText = t.statusCancelled;
+    
+    // Grab items from the order details modal
+    const itemsBody = document.getElementById("detOrderItemsBody");
+    let itemsHtml = "";
+    let itemsSubtotal = 0;
+    
+    if (itemsBody) {
+        const rows = itemsBody.querySelectorAll("tr");
+        rows.forEach((row, index) => {
+            const cells = row.querySelectorAll("td");
+            if (cells.length >= 4) {
+                const bookTitle = cells[0].textContent;
+                const qty = cells[1].textContent;
+                const unitPrice = cells[2].textContent;
+                const subtotal = cells[3].textContent;
+                itemsSubtotal += parseFloat(subtotal.replace(/[^0-9.-]/g, '')) || 0;
+                itemsHtml += `<tr><td>${index + 1}</td><td>${bookTitle}</td><td style="text-align:center;">${qty}</td><td style="text-align:center;">${unitPrice}</td><td style="text-align:center;">${subtotal}</td></tr>`;
+            }
+        });
+    }
+    
+    const shipping = parseFloat(order.shipping_cost) || 0;
+    const total = parseFloat(order.total_price) || 0;
+    
+    const invoiceHtml = `
+    <!DOCTYPE html>
+    <html dir="${document.documentElement.dir}">
+    <head>
+        <meta charset="UTF-8">
+        <title>فاتورة - ${order.id.substring(0, 8)}</title>
+        <style>
+            @page { margin: 15mm; size: A4; }
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+            body { font-family: 'Tajawal', 'Segoe UI', Arial, sans-serif; color: #1a1a1a; background: #fff; padding: 20px; direction: ${document.documentElement.dir}; }
+            .invoice-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #C5A021; padding-bottom: 20px; margin-bottom: 25px; }
+            .invoice-logo { display: flex; align-items: center; gap: 12px; }
+            .invoice-logo img { width: 50px; height: 50px; }
+            .invoice-logo h1 { font-size: 24px; color: #1B3022; }
+            .invoice-logo h1 span { color: #C5A021; }
+            .invoice-title { font-size: 20px; font-weight: 800; color: #1B3022; background: #F5F1E6; padding: 8px 20px; border-radius: 8px; }
+            .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+            .info-box { background: #f8f6f0; padding: 15px; border-radius: 10px; }
+            .info-box h3 { font-size: 14px; color: #C5A021; margin-bottom: 8px; font-weight: 700; }
+            .info-box p { font-size: 13px; color: #333; margin-bottom: 4px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
+            th { background: #1B3022; color: #fff; padding: 12px 15px; font-size: 13px; font-weight: 700; text-align: ${document.documentElement.dir === 'rtl' ? 'right' : 'left'}; }
+            td { padding: 10px 15px; border-bottom: 1px solid #e0dcd0; font-size: 13px; }
+            tr:nth-child(even) { background: #faf8f2; }
+            .totals { ${document.documentElement.dir === 'rtl' ? 'text-align: left;' : 'text-align: right;'} margin-top: 10px; }
+            .totals div { margin-bottom: 6px; font-size: 14px; }
+            .totals .grand-total { font-size: 20px; font-weight: 800; color: #1B3022; border-top: 2px solid #C5A021; padding-top: 10px; margin-top: 10px; }
+            .footer-note { text-align: center; color: #888; font-size: 12px; margin-top: 40px; border-top: 1px solid #e0dcd0; padding-top: 20px; }
+            .status-badge-inv { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; background: #EEF7F0; color: #3B7A45; }
+            @media print { body { padding: 0; } .no-print { display: none; } }
+        </style>
+    </head>
+    <body>
+        <div class="invoice-header">
+            <div class="invoice-logo">
+                <img src="assets/logo.png" alt="dm">
+                <h1>dm<span>.</span></h1>
+            </div>
+            <div class="invoice-title">${currentLang === "ar" ? "فاتورة شراء" : "INVOICE"}</div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-box">
+                <h3>${currentLang === "ar" ? "بيانات العميل" : "Customer Info"}</h3>
+                <p><strong>${t.lblDetName.replace(':', '')}:</strong> ${order.customer_name}</p>
+                <p><strong>${t.lblDetPhone.replace(':', '')}:</strong> ${order.customer_phone}</p>
+                <p><strong>${t.lblDetGov.replace(':', '')}:</strong> ${order.governorate}</p>
+                <p><strong>${t.lblDetAddress.replace(':', '')}:</strong> ${order.address}</p>
+                ${order.notes ? `<p><strong>${t.lblDetNotes.replace(':', '')}:</strong> ${order.notes}</p>` : ''}
+            </div>
+            <div class="info-box">
+                <h3>${currentLang === "ar" ? "معلومات الفاتورة" : "Invoice Info"}</h3>
+                <p><strong>${currentLang === "ar" ? "رقم الطلب:" : "Order ID:"}</strong> ${order.id}</p>
+                <p><strong>${currentLang === "ar" ? "التاريخ:" : "Date:"}</strong> ${orderDate}</p>
+                <p><strong>${currentLang === "ar" ? "الحالة:" : "Status:"}</strong> <span class="status-badge-inv">${statusText}</span></p>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>${t.thDetBookTitle}</th>
+                    <th style="text-align:center;">${t.thDetQty}</th>
+                    <th style="text-align:center;">${t.thDetUnitPrice}</th>
+                    <th style="text-align:center;">${t.thDetSubtotal}</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${itemsHtml || `<tr><td colspan="5" style="text-align:center;">${currentLang === "ar" ? "لا توجد عناصر" : "No items"}</td></tr>`}
+            </tbody>
+        </table>
+        
+        <div class="totals">
+            <div><strong>${t.lblDetSubtotalPrice}</strong> ${itemsSubtotal.toFixed(2)} ${t.currency}</div>
+            <div><strong>${t.lblDetShippingPrice}</strong> ${shipping.toFixed(2)} ${t.currency}</div>
+            <div class="grand-total"><strong>${t.lblDetTotalPrice}</strong> ${total.toFixed(2)} ${t.currency}</div>
+        </div>
+        
+        <div class="footer-note">
+            ${currentLang === "ar" ? "شكراً لتسوقك من dm bookstore" : "Thank you for shopping at dm bookstore"}
+            <br>
+            ${currentLang === "ar" ? "الدفع عند الاستلام" : "Cash on Delivery"}
+        </div>
+        
+        <div style="text-align:center;margin-top:20px;">
+            <button class="no-print" onclick="window.print()" style="padding:10px 30px;background:#1B3022;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:15px;">
+                <i class="fa-solid fa-print"></i> ${currentLang === "ar" ? "طباعة" : "Print"}
+            </button>
+        </div>
+    </body>
+    </html>`;
+    
+    const printWindow = window.open("", "_blank", "width=900,height=700");
+    if (printWindow) {
+        printWindow.document.write(invoiceHtml);
+        printWindow.document.close();
+        printWindow.focus();
+        setTimeout(() => { printWindow.print(); }, 500);
+    } else {
+        alert(currentLang === "ar" ? "يرجى السماح للنوافذ المنبثقة لطباعة الفاتورة" : "Please allow pop-ups to print the invoice");
+    }
+}
+
+// ---------------------------
+// نظام الإشعارات (Notification System)
+// ---------------------------
+
+let notifications = [];
+let previousNotifCount = 0;
+let notifPollingInterval = null;
+let notifPanelOpen = false;
+
+function playNotificationSound() {
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+        oscillator.frequency.value = 880;
+        oscillator.type = "sine";
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + 0.6);
+        setTimeout(() => {
+            const osc2 = ctx.createOscillator();
+            const gain2 = ctx.createGain();
+            osc2.connect(gain2);
+            gain2.connect(ctx.destination);
+            osc2.frequency.value = 1108;
+            osc2.type = "sine";
+            gain2.gain.setValueAtTime(0.25, ctx.currentTime);
+            gain2.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+            osc2.start(ctx.currentTime);
+            osc2.stop(ctx.currentTime + 0.5);
+        }, 200);
+    } catch (e) {
+        console.warn("[admin] playNotificationSound:", e);
+    }
+}
+
+function getNotifT() {
+    return translations[currentLang];
+}
+
+function formatNotifTime(dateStr) {
+    const t = getNotifT();
+    const now = new Date();
+    const date = new Date(dateStr);
+    const diffMs = now - date;
+    const diffMin = Math.floor(diffMs / 60000);
+    const diffHr = Math.floor(diffMin / 60);
+    const diffDay = Math.floor(diffHr / 24);
+
+    if (diffMin < 1) return t.notifJustNow;
+    if (diffMin < 60) {
+        if (diffMin === 1) return t.notifMinutesAgo;
+        return t.notifMinutesAgoPlural.replace('{n}', diffMin);
+    }
+    if (diffHr < 24) {
+        if (diffHr === 1) return t.notifHoursAgo;
+        return t.notifHoursAgoPlural.replace('{n}', diffHr);
+    }
+    if (diffDay === 1) return t.notifDaysAgo;
+    return t.notifDaysAgoPlural.replace('{n}', diffDay);
+}
+
+async function checkNotifications() {
+    try {
+        const sb = getSb();
+        const { data } = await adminRun("admin.notifications.list", () =>
+            sb.from("notifications")
+              .select("*")
+              .eq("is_read", false)
+              .order("created_at", { ascending: false })
+              .limit(50)
+        );
+        const newCount = (data || []).length;
+        if (newCount > previousNotifCount && previousNotifCount > 0) {
+            playNotificationSound();
+        }
+        previousNotifCount = newCount;
+        notifications = data || [];
+        updateNotifBadge(notifications.length);
+        if (notifPanelOpen) renderNotifications();
+    } catch (err) {
+        // Silent fail - don't spam console on polling errors
+        const normalized = window.dmApiGuard?.normalizeError
+            ? window.dmApiGuard.normalizeError(err)
+            : err;
+        console.warn("[admin] checkNotifications:", normalized.message);
+    }
+}
+
+function updateNotifBadge(count) {
+    const badge = document.getElementById("notifBadge");
+    if (!badge) return;
+    if (count > 0) {
+        badge.style.display = "inline";
+        badge.textContent = count > 99 ? "99+" : count;
+    } else {
+        badge.style.display = "none";
+    }
+}
+
+function renderNotifications() {
+    const body = document.getElementById("notifPanelBody");
+    const empty = document.getElementById("notifEmptyState");
+    const markBtn = document.getElementById("markAllNotifReadBtn");
+    if (!body) return;
+
+    if (notifications.length === 0) {
+        body.innerHTML = `
+            <div class="notif-empty">
+                <i class="fa-solid fa-bell-slash"></i>
+                <p>${getNotifT().notifEmptyText}</p>
+            </div>`;
+        if (markBtn) markBtn.style.display = "none";
+        return;
+    }
+
+    if (markBtn) markBtn.style.display = "inline-flex";
+
+    body.innerHTML = notifications.map(n => {
+        const isNewOrder = n.type === "order";
+        const iconClass = isNewOrder ? "notif-icon-order" : "notif-icon-contact";
+        const iconHtml = isNewOrder
+            ? '<i class="fa-solid fa-receipt"></i>'
+            : '<i class="fa-solid fa-message"></i>';
+        const timeAgo = formatNotifTime(n.created_at);
+        const title = n.title || (isNewOrder ? getNotifT().notifNewOrderTitle : getNotifT().notifNewContactTitle);
+        const message = n.message || "";
+
+        return `
+        <div class="notif-item notif-unread" onclick="handleNotifClick('${n.id}', '${n.type}', '${n.reference_id || ''}')">
+            <div class="notif-icon ${iconClass}">${iconHtml}</div>
+            <div class="notif-content">
+                <div class="notif-title">${title}</div>
+                <div class="notif-message">${message}</div>
+                <div class="notif-time">${timeAgo}</div>
+            </div>
+            <div class="notif-dot"></div>
+        </div>`;
+    }).join("");
+}
+
+function toggleNotificationsPanel() {
+    const panel = document.getElementById("notificationsPanel");
+    if (!panel) return;
+    notifPanelOpen = !notifPanelOpen;
+    if (notifPanelOpen) {
+        const bellBtn = document.getElementById("tabBtnNotifications");
+        if (bellBtn) {
+            const rect = bellBtn.getBoundingClientRect();
+            const panelLeft = document.documentElement.dir === "rtl"
+                ? (rect.left - 390) + "px"
+                : (rect.right + 10) + "px";
+            panel.style.left = panelLeft;
+            panel.style.top = Math.max(rect.top - 10, 10) + "px";
+        }
+        panel.style.display = "flex";
+        checkNotifications();
+    } else {
+        panel.style.display = "none";
+    }
+}
+
+async function handleNotifClick(id, type, referenceId) {
+    await markNotificationRead(id);
+    if (type === "order" && referenceId) {
+        switchTab("orders");
+        setTimeout(() => {
+            openOrderDetailsModal(referenceId);
+        }, 300);
+    } else if (type === "contact" && referenceId) {
+        switchTab("orders");
+    }
+    if (notifPanelOpen) toggleNotificationsPanel();
+}
+
+async function markNotificationRead(id) {
+    try {
+        const sb = getSb();
+        await adminRun("admin.notifications.read", () =>
+            sb.from("notifications").update({ is_read: true }).eq("id", id)
+        );
+        notifications = notifications.filter(n => n.id !== id);
+        previousNotifCount = notifications.length;
+        updateNotifBadge(notifications.length);
+        if (notifPanelOpen) renderNotifications();
+    } catch (err) {
+        console.warn("[admin] markNotificationRead:", err);
+    }
+}
+
+async function markAllNotificationsRead() {
+    try {
+        const sb = getSb();
+        await adminRun("admin.notifications.readAll", () =>
+            sb.from("notifications").update({ is_read: true }).eq("is_read", false)
+        );
+        notifications = [];
+        previousNotifCount = 0;
+        updateNotifBadge(0);
+        if (notifPanelOpen) renderNotifications();
+        showAdminToast(
+            currentLang === "ar" ? "تم تحديد الكل كمقروء" : "All marked as read",
+            "success"
+        );
+    } catch (err) {
+        console.warn("[admin] markAllNotificationsRead:", err);
+    }
+}
+
+function startNotificationPolling() {
+    if (notifPollingInterval) return;
+    checkNotifications();
+    notifPollingInterval = setInterval(checkNotifications, 30000);
+}
+
+function stopNotificationPolling() {
+    if (notifPollingInterval) {
+        clearInterval(notifPollingInterval);
+        notifPollingInterval = null;
+    }
+}
+
+// Close notification panel when clicking outside
+document.addEventListener("click", function (e) {
+    const panel = document.getElementById("notificationsPanel");
+    const bellBtn = document.getElementById("tabBtnNotifications");
+    if (!panel || !notifPanelOpen) return;
+    if (panel.contains(e.target) || bellBtn?.contains(e.target)) return;
+    panel.style.display = "none";
+    notifPanelOpen = false;
+});
+
+// Override toggleUIState to start/stop notification polling
+const originalToggleUIState = toggleUIState;
+toggleUIState = function (isLoggedIn) {
+    originalToggleUIState(isLoggedIn);
+    if (isLoggedIn) {
+        startNotificationPolling();
+    } else {
+        stopNotificationPolling();
+        const panel = document.getElementById("notificationsPanel");
+        if (panel) panel.style.display = "none";
+        notifPanelOpen = false;
+        previousNotifCount = 0;
+        updateNotifBadge(0);
+    }
+};
+
+// ---------------------------
+// إعدادات الإشعارات البريدية
+// ---------------------------
+
+async function loadEmailSettings() {
+    try {
+        const sb = getSb();
+        const { data: rows } = await sb.from("admin_settings").select("key,value");
+        if (!rows) return;
+        const map = {};
+        rows.forEach(r => map[r.key] = r.value);
+        if (map.admin_email) document.getElementById("adminEmailInput").value = map.admin_email;
+        if (map.supabase_url) document.getElementById("supabaseUrlInput").value = map.supabase_url;
+        if (map.supabase_anon_key) document.getElementById("supabaseAnonKeyInput").value = map.supabase_anon_key;
+    } catch (err) {
+        console.error("[admin] loadEmailSettings:", err);
+    }
+}
+
+async function saveEmailSettings(e) {
+    e.preventDefault();
+    const t = translations[currentLang];
+    const statusEl = document.getElementById("emailSettingsStatus");
+    const adminEmail = document.getElementById("adminEmailInput").value.trim();
+    const supabaseUrl = document.getElementById("supabaseUrlInput").value.trim();
+    const supabaseAnonKey = document.getElementById("supabaseAnonKeyInput").value.trim();
+
+    try {
+        const sb = getSb();
+        const entries = {};
+        if (adminEmail) entries.admin_email = adminEmail;
+        if (supabaseUrl) entries.supabase_url = supabaseUrl;
+        if (supabaseAnonKey) entries.supabase_anon_key = supabaseAnonKey;
+
+        for (const [key, value] of Object.entries(entries)) {
+            await sb.from("admin_settings").upsert({ key, value }, { onConflict: "key" });
+        }
+
+        statusEl.textContent = t.emailSettingsSaved;
+        statusEl.style.color = "var(--success)";
+    } catch (err) {
+        console.error("[admin] saveEmailSettings:", err);
+        statusEl.textContent = t.emailSettingsError;
+        statusEl.style.color = "var(--danger)";
+    }
+
+    setTimeout(() => { statusEl.textContent = ""; }, 4000);
+}
+
+async function testEmailSettings() {
+    const t = translations[currentLang];
+    const statusEl = document.getElementById("emailSettingsStatus");
+    const adminEmail = document.getElementById("adminEmailInput").value.trim();
+    const supabaseUrl = document.getElementById("supabaseUrlInput").value.trim();
+    const supabaseAnonKey = document.getElementById("supabaseAnonKeyInput").value.trim();
+
+    if (!adminEmail || !supabaseUrl || !supabaseAnonKey) {
+        statusEl.textContent = currentLang === "ar" ? "يرجى ملء جميع الحقول أولاً" : "Please fill all fields first";
+        statusEl.style.color = "var(--danger)";
+        setTimeout(() => { statusEl.textContent = ""; }, 4000);
+        return;
+    }
+
+    try {
+        const res = await fetch(`${supabaseUrl}/functions/v1/send-admin-notification`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${supabaseAnonKey}`
+            },
+            body: JSON.stringify({
+                type: "contact",
+                title: currentLang === "ar" ? "إيميل تجريبي" : "Test Email",
+                message: currentLang === "ar"
+                    ? "هذا إيميل تجريبي — إعدادات الإشعارات البريدية تعمل بنجاح 🎉"
+                    : "This is a test email — email notification settings are working 🎉"
+            })
+        });
+
+        if (res.ok) {
+            statusEl.textContent = t.emailTestSent;
+            statusEl.style.color = "var(--success)";
+        } else {
+            const errText = await res.text();
+            console.error("[admin] testEmail error:", res.status, errText);
+            statusEl.textContent = t.emailTestError + ` (${res.status})`;
+            statusEl.style.color = "var(--danger)";
+        }
+    } catch (err) {
+        console.error("[admin] testEmail:", err);
+        statusEl.textContent = t.emailTestError;
+        statusEl.style.color = "var(--danger)";
+    }
+
+    setTimeout(() => { statusEl.textContent = ""; }, 4000);
 }
 
 // منع توقف السكربت بسبب Promise مرفوضة غير ملتقطة

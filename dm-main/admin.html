@@ -6,8 +6,6 @@
   <title>dm | لوحة تحكم الأدمن المطورة</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/admin.css">
-  <link rel="icon" type="image/png" href="../assets/logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
 </head>
 <body class="admin-body">
   <main class="admin-root">
@@ -61,6 +59,9 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
           </li>
           <li class="admin-nav-item" id="tabBtnBooks">
             <button type="button" onclick="switchTab('books')"><i class="fa-solid fa-book"></i> <span id="btnTabBooksText">إدارة الكتب</span></button>
+          </li>
+          <li class="admin-nav-item" id="tabBtnEmailSettings">
+            <button type="button" onclick="switchTab('email-settings')"><i class="fa-solid fa-envelope"></i> <span id="btnTabEmailText">إعدادات الإيميل</span></button>
           </li>
           <li class="admin-nav-spacer"></li>
           <li><a href="index.html" class="admin-nav-link"><i class="fa-solid fa-store"></i> المتجر</a></li>
@@ -157,15 +158,54 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
                   <th id="thBookCat">التصنيف</th>
                   <th id="thBookLang">اللغة</th>
                   <th id="thBookPrice">السعر</th>
+                  <th id="thBookBestSeller">الأكثر مبيعاً</th>
                   <th id="thBookStock">التوفر</th>
                   <th id="thBookActions">حذف</th>
                 </tr>
               </thead>
               <tbody id="booksTableBody">
                 <!-- انيميشن تحميل افتراضي -->
-                <tr class="table-loading-row"><td colspan="8" style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الكتب...</td></tr>
+                <tr class="table-loading-row"><td colspan="9" style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الكتب...</td></tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- قسم إعدادات الإيميل -->
+        <div id="paneEmailSettings" class="admin-pane" style="display:none;">
+          <div class="admin-pane-header admin-card">
+            <h3 id="emailPaneTitle">إعدادات الإشعارات البريدية</h3>
+            <p id="emailPaneDesc" class="admin-stat" style="font-size:13px;">هذه الإعدادات تُمكّن إرسال إيميلات فورية للأدمن عند وصول طلب جديد أو رسالة تواصل — حتى لو كان الموقع مقفول.</p>
+          </div>
+          <div class="admin-card" style="padding:24px;">
+            <form id="emailSettingsForm" onsubmit="saveEmailSettings(event)">
+              <div class="form-group">
+                <label id="lblAdminEmailInput">البريد الإلكتروني للأدمن (يستقبل الإشعارات)</label>
+                <input id="adminEmailInput" type="email" placeholder="admin@example.com" style="direction:ltr;text-align:left;">
+              </div>
+              <div class="form-group">
+                <label id="lblSupabaseUrlInput">Supabase Project URL</label>
+                <input id="supabaseUrlInput" type="url" placeholder="https://xxxxx.supabase.co" style="direction:ltr;text-align:left;">
+              </div>
+              <div class="form-group">
+                <label id="lblSupabaseAnonKeyInput">Supabase Anon Key</label>
+                <input id="supabaseAnonKeyInput" type="text" placeholder="eyJhbGciOi..." style="direction:ltr;text-align:left;font-family:monospace;font-size:13px;">
+                <p id="anonKeyHint" style="font-size:12px;color:var(--ink-muted);margin-top:4px;">من Supabase Dashboard → Settings → API → anon public key</p>
+              </div>
+              <div style="display:flex;gap:12px;margin-top:20px;align-items:center;">
+                <button type="submit" class="btn btn-primary" id="btnSaveEmailSettings"><i class="fa-solid fa-floppy-disk"></i> حفظ الإعدادات</button>
+                <button type="button" class="btn btn-outline" onclick="testEmailSettings()" id="btnTestEmail"><i class="fa-solid fa-paper-plane"></i> إرسال إيميل تجريبي</button>
+                <span id="emailSettingsStatus" style="font-size:14px;font-weight:600;margin-right:12px;"></span>
+              </div>
+            </form>
+            <hr style="border:none;border-top:1px solid rgba(197,150,58,0.15);margin:24px 0;">
+            <div style="font-size:13px;color:var(--ink-muted);line-height:1.8;">
+              <p><strong style="color:var(--walnut);">كيف تعمل؟</strong></p>
+              <p>1) تأكد من تشغيل <code>pg_net</code> extension في Supabase Dashboard → Database → Extensions</p>
+              <p>2) أنشئ Edge Function: <code>supabase functions deploy send-admin-notification --no-verify-jwt</code></p>
+              <p>3) أضف المتغيرات السرية: <code>supabase secrets set RESEND_API_KEY=re_xxx ADMIN_EMAIL=admin@example.com STORE_URL=https://yoursite.com</code></p>
+              <p>4) احفظ الإعدادات أعلاه — وستصلك الإشعارات فور وصول أي طلب أو رسالة.</p>
+            </div>
           </div>
         </div>
       </div>

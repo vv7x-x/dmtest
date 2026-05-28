@@ -15,16 +15,6 @@
     return url;
   }
 
-  function esc(str) {
-    return String(str || "").replace(/[&<>"']/g, function (m) {
-      if (m === "&") return "&amp;";
-      if (m === "<") return "&lt;";
-      if (m === ">") return "&gt;";
-      if (m === '"') return "&quot;";
-      return "&#x27;";
-    });
-  }
-
   /** غلاف CSS عند غياب الصورة */
   function buildPlaceholderFace(title, author) {
     const face = document.createElement("div");
@@ -32,7 +22,7 @@
     face.innerHTML = `
       <div class="book-cover-placeholder-inner">
         <i class="fa-solid fa-book" aria-hidden="true"></i>
-        <span>${esc(title)}</span>
+        <span>${title || ""}</span>
       </div>`;
     return face;
   }

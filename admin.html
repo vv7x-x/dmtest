@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <title>dm | لوحة تحكم الأدمن المطورة</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/admin.css">
-  <link rel="icon" type="image/png" href="assets/logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
 </head>
 <body class="admin-body">
   <main class="admin-root">
@@ -65,8 +64,21 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
           <li class="admin-nav-item" id="tabBtnGovernorates">
             <button type="button" onclick="switchTab('governorates')"><i class="fa-solid fa-map-location-dot"></i> <span id="btnTabGovText">المحافظات والشحن</span></button>
           </li>
+          <li class="admin-nav-item" id="tabBtnStats">
+            <button type="button" onclick="switchTab('stats')"><i class="fa-solid fa-chart-simple"></i> <span id="btnTabStatsText">الإحصائيات</span></button>
+          </li>
+          <li class="admin-nav-item" id="tabBtnEmailSettings">
+            <button type="button" onclick="switchTab('email-settings')"><i class="fa-solid fa-envelope"></i> <span id="btnTabEmailText">إعدادات الإيميل</span></button>
+          </li>
+          <li class="admin-nav-item" id="tabBtnNotifications" style="position:relative;">
+            <button type="button" onclick="toggleNotificationsPanel()" style="position:relative;">
+              <i class="fa-solid fa-bell"></i> <span id="btnTabNotificationsText">الإشعارات</span>
+              <span id="notifBadge" class="notif-badge" style="display:none;">0</span>
+            </button>
+          </li>
           <li class="admin-nav-spacer"></li>
           <li><a href="index.html" class="admin-nav-link"><i class="fa-solid fa-store"></i> المتجر</a></li>
+          <li><button type="button" class="lang-switch-btn" id="langSwitch" onclick="toggleLanguage()" style="width:100%;margin-top:8px;padding:10px;border-radius:var(--r-sm);background:rgba(197,150,58,0.1);color:var(--gold);border:1px solid rgba(197,150,58,0.2);cursor:pointer;font-weight:700;">EN</button></li>
           <li><button type="button" class="btn btn-outline btn-sidebar" onclick="openAddBookModal()" id="btnAddBookBtn"><i class="fa-solid fa-plus"></i> إضافة كتاب</button></li>
           <li><button type="button" class="btn btn-secondary btn-sidebar" onclick="logoutAdmin()" id="btnAdminLogoutText"><i class="fa-solid fa-arrow-right-from-bracket"></i> تسجيل خروج</button></li>
         </ul>
@@ -95,11 +107,11 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
             </div>
             <div class="form-group" style="min-width: 150px; margin: 0;">
               <select id="filterOrderStatus" onchange="filterOrders()">
-                <option value="all">كل الحالات</option>
-                <option value="pending">قيد الانتظار</option>
-                <option value="processing">جاري التجهيز</option>
-                <option value="completed">تم التوصيل</option>
-                <option value="cancelled">ملغي</option>
+                <option value="all" id="optStatusAll">كل الحالات</option>
+                <option value="pending" id="optStatusPending">قيد الانتظار</option>
+                <option value="processing" id="optStatusProcessing">جاري التجهيز</option>
+                <option value="completed" id="optStatusCompleted">تم التوصيل</option>
+                <option value="cancelled" id="optStatusCancelled">ملغي</option>
               </select>
             </div>
           </div>
@@ -177,6 +189,89 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
           </div>
         </div>
 
+        <!-- قسم الإحصائيات -->
+        <div id="paneStats" class="admin-pane" style="display:none;">
+          <div class="admin-pane-header admin-card">
+            <div>
+              <h3 id="statsPaneTitle">لوحة الإحصائيات</h3>
+              <p id="statsLastUpdate" class="admin-stat" style="font-size:12px;">آخر تحديث: -</p>
+            </div>
+            <div class="admin-actions-group">
+              <button type="button" class="btn btn-outline" onclick="loadDashboardStats()"><i class="fa-solid fa-rotate"></i> <span id="btnRefreshStats">تحديث</span></button>
+            </div>
+          </div>
+          <div class="stats-grid" id="statsGrid">
+            <div class="stat-card stat-card-revenue">
+              <div class="stat-icon"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+              <div class="stat-number" id="statTotalRevenue">0 <span>ج.م</span></div>
+              <div class="stat-label" id="statLabelRevenue">إجمالي الإيرادات</div>
+            </div>
+            <div class="stat-card stat-card-orders">
+              <div class="stat-icon"><i class="fa-solid fa-receipt"></i></div>
+              <div class="stat-number" id="statTotalOrders">0</div>
+              <div class="stat-label" id="statLabelTotalOrders">إجمالي الطلبات</div>
+            </div>
+            <div class="stat-card stat-card-completed">
+              <div class="stat-icon"><i class="fa-solid fa-circle-check"></i></div>
+              <div class="stat-number" id="statCompletedOrders">0</div>
+              <div class="stat-label" id="statLabelCompletedOrders">الطلبات المكتملة</div>
+            </div>
+            <div class="stat-card stat-card-books">
+              <div class="stat-icon"><i class="fa-solid fa-book"></i></div>
+              <div class="stat-number" id="statTotalBooks">0</div>
+              <div class="stat-label" id="statLabelTotalBooks">إجمالي الكتب</div>
+            </div>
+            <div class="stat-card stat-card-sold">
+              <div class="stat-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+              <div class="stat-number" id="statBooksSold">0</div>
+              <div class="stat-label" id="statLabelBooksSold">الكتب المباعة</div>
+            </div>
+            <div class="stat-card stat-card-pending">
+              <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+              <div class="stat-number" id="statPendingOrders">0</div>
+              <div class="stat-label" id="statLabelPendingOrders">طلبات معلقة</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- قسم إعدادات الإيميل -->
+        <div id="paneEmailSettings" class="admin-pane" style="display:none;">
+          <div class="admin-pane-header admin-card">
+            <h3 id="emailPaneTitle">إعدادات الإشعارات البريدية</h3>
+            <p id="emailPaneDesc" class="admin-stat" style="font-size:13px;">هذه الإعدادات تُمكّن إرسال إيميلات فورية للأدمن عند وصول طلب جديد أو رسالة تواصل — حتى لو كان الموقع مقفول.</p>
+          </div>
+          <div class="admin-card" style="padding:24px;">
+            <form id="emailSettingsForm" onsubmit="saveEmailSettings(event)">
+              <div class="form-group">
+                <label id="lblAdminEmailInput">البريد الإلكتروني للأدمن (يستقبل الإشعارات)</label>
+                <input id="adminEmailInput" type="email" placeholder="admin@example.com" style="direction:ltr;text-align:left;">
+              </div>
+              <div class="form-group">
+                <label id="lblSupabaseUrlInput">Supabase Project URL</label>
+                <input id="supabaseUrlInput" type="url" placeholder="https://xxxxx.supabase.co" style="direction:ltr;text-align:left;">
+              </div>
+              <div class="form-group">
+                <label id="lblSupabaseAnonKeyInput">Supabase Anon Key</label>
+                <input id="supabaseAnonKeyInput" type="text" placeholder="eyJhbGciOi..." style="direction:ltr;text-align:left;font-family:monospace;font-size:13px;">
+                <p id="anonKeyHint" style="font-size:12px;color:var(--ink-muted);margin-top:4px;">من Supabase Dashboard → Settings → API → anon public key</p>
+              </div>
+              <div style="display:flex;gap:12px;margin-top:20px;align-items:center;">
+                <button type="submit" class="btn btn-primary" id="btnSaveEmailSettings"><i class="fa-solid fa-floppy-disk"></i> حفظ الإعدادات</button>
+                <button type="button" class="btn btn-outline" onclick="testEmailSettings()" id="btnTestEmail"><i class="fa-solid fa-paper-plane"></i> إرسال إيميل تجريبي</button>
+                <span id="emailSettingsStatus" style="font-size:14px;font-weight:600;margin-right:12px;"></span>
+              </div>
+            </form>
+            <hr style="border:none;border-top:1px solid rgba(197,150,58,0.15);margin:24px 0;">
+            <div style="font-size:13px;color:var(--ink-muted);line-height:1.8;">
+              <p><strong style="color:var(--walnut);">كيف تعمل؟</strong></p>
+              <p>1) تأكد من تشغيل <code>pg_net</code> extension في Supabase Dashboard → Database → Extensions</p>
+              <p>2) أنشئ Edge Function: <code>supabase functions deploy send-admin-notification --no-verify-jwt</code></p>
+              <p>3) أضف المتغيرات السرية: <code>supabase secrets set RESEND_API_KEY=re_xxx ADMIN_EMAIL=admin@example.com STORE_URL=https://yoursite.com</code></p>
+              <p>4) احفظ الإعدادات أعلاه — وستصلك الإشعارات فور وصول أي طلب أو رسالة.</p>
+            </div>
+          </div>
+        </div>
+
         <!-- قسم إدارة الكتب -->
         <div id="paneBooks" class="admin-pane" style="display:none;">
           <div class="admin-pane-header admin-card">
@@ -191,13 +286,18 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
             </div>
             <div class="form-group" style="min-width: 150px; margin: 0;">
               <select id="filterBookCategory" onchange="filterBooks()">
-                <option value="all">كل التصنيفات</option>
-                <option value="novels">روايات</option>
-                <option value="religious">كتب دينية</option>
-                <option value="self-development">تنمية بشرية</option>
-                <option value="children">كتب أطفال</option>
-                <option value="science">علوم وتكنولوجيا</option>
-                <option value="history">تاريخ وسير</option>
+                <option value="all" id="optBookCatAll">كل التصنيفات</option>
+                <option value="novels" id="optBookCatNovels">روايات</option>
+                <option value="religious" id="optBookCatReligious">كتب دينية</option>
+                <option value="self-development" id="optBookCatSelf">تنمية بشرية</option>
+                <option value="children" id="optBookCatChildren">كتب أطفال</option>
+                <option value="science" id="optBookCatScience">علوم وتكنولوجيا</option>
+                <option value="history" id="optBookCatHistory">تاريخ وسير</option>
+                <option value="politics" id="optBookCatPolitics">سياسة</option>
+                <option value="philosophy" id="optBookCatPhilosophy">فكر وفلسفة</option>
+                <option value="psychology" id="optBookCatPsychology">علم نفس</option>
+                <option value="economics" id="optBookCatEconomics">اقتصاد وإدارة</option>
+                <option value="health" id="optBookCatHealth">صحة وطب</option>
               </select>
             </div>
           </div>
@@ -212,19 +312,37 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
                   <th id="thBookCat">التصنيف</th>
                   <th id="thBookLang">اللغة</th>
                   <th id="thBookPrice">السعر</th>
+                  <th id="thBookDiscount">الخصم</th>
+                  <th id="thBookBestSeller">الأكثر مبيعاً</th>
                   <th id="thBookStock">التوفر</th>
                   <th id="thBookActions">إجراءات</th>
                 </tr>
               </thead>
               <tbody id="booksTableBody">
                 <!-- انيميشن تحميل افتراضي -->
-                <tr class="table-loading-row"><td colspan="8" style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الكتب...</td></tr>
+                <tr class="table-loading-row"><td colspan="11" style="text-align: center; padding: 20px;"><i class="fa-solid fa-spinner fa-spin"></i> جاري تحميل الكتب...</td></tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- ================= لوحة الإشعارات ================= -->
+    <div id="notificationsPanel" class="notif-panel" style="display:none;">
+      <div class="notif-panel-header">
+        <h3 id="notifPanelTitle">الإشعارات</h3>
+        <button type="button" id="markAllNotifReadBtn" class="notif-mark-all" onclick="markAllNotificationsRead()">
+          <i class="fa-solid fa-check-double"></i> <span id="notifMarkAllText">تحديد الكل كمقروء</span>
+        </button>
+      </div>
+      <div class="notif-panel-body" id="notifPanelBody">
+        <div class="notif-empty" id="notifEmptyState">
+          <i class="fa-solid fa-bell-slash"></i>
+          <p id="notifEmptyText">لا توجد إشعارات جديدة</p>
+        </div>
+      </div>
+    </div>
 
     <!-- ================= مودال: إضافة / تعديل كتاب ================= -->
     <div class="modal" id="addBookModal">
@@ -242,14 +360,23 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
               <div class="form-group"><label id="lblBookPriceInput">السعر (ج.م) *</label><input id="bookPriceInput" type="number" step="0.01" min="0" required></div>
             </div>
             <div class="form-row">
+              <div class="form-group"><label id="lblBookDiscountInput">نسبة الخصم (%)</label><input id="bookDiscountInput" type="number" min="0" max="100" step="1" value="0"></div>
+              <div class="form-group" style="visibility:hidden;"></div>
+            </div>
+            <div class="form-row">
               <div class="form-group"><label id="lblBookCategoryInput">التصنيف *</label>
                 <select id="bookCategoryInput" required>
-                  <option value="novels">روايات</option>
-                  <option value="religious">كتب دينية</option>
-                  <option value="self-development">تنمية بشرية</option>
-                  <option value="children">كتب أطفال</option>
-                  <option value="science">علوم وتكنولوجيا</option>
-                  <option value="history">تاريخ وسير</option>
+                  <option value="novels" id="optModalCatNovels">روايات</option>
+                  <option value="religious" id="optModalCatReligious">كتب دينية</option>
+                  <option value="self-development" id="optModalCatSelf">تنمية بشرية</option>
+                  <option value="children" id="optModalCatChildren">كتب أطفال</option>
+                  <option value="science" id="optModalCatScience">علوم وتكنولوجيا</option>
+                  <option value="history" id="optModalCatHistory">تاريخ وسير</option>
+                  <option value="politics" id="optModalCatPolitics">سياسة</option>
+                  <option value="philosophy" id="optModalCatPhilosophy">فكر وفلسفة</option>
+                  <option value="psychology" id="optModalCatPsychology">علم نفس</option>
+                  <option value="economics" id="optModalCatEconomics">اقتصاد وإدارة</option>
+                  <option value="health" id="optModalCatHealth">صحة وطب</option>
                 </select>
               </div>
               <div class="form-group"><label id="lblBookLanguageInput">الغة *</label>
@@ -381,7 +508,10 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
         </div>
         <div class="modal-footer modal-footer-split">
           <button type="button" class="btn btn-danger" onclick="deleteOrder()" id="btnDeleteOrder"><i class="fa-solid fa-trash-can"></i> حذف الطلب</button>
-          <button type="button" class="btn btn-primary" onclick="closeOrderDetailsModal()" id="btnSaveOrderDet">إغلاق</button>
+          <div>
+            <button type="button" class="btn btn-secondary" onclick="printInvoice()" id="btnPrintInvoice" style="margin-left:8px;"><i class="fa-solid fa-print"></i> <span id="btnPrintInvoiceText">طباعة الفاتورة</span></button>
+            <button type="button" class="btn btn-primary" onclick="closeOrderDetailsModal()" id="btnSaveOrderDet">إغلاق</button>
+          </div>
         </div>
       </div>
     </div>
@@ -391,6 +521,7 @@ SELECT id FROM auth.users WHERE email = 'بريدك@هنا.com';</pre>
   <!-- السكربتات الخارجية -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
+  <script src="js/crypto-utils.js"></script>
   <script src="js/api-guard.js"></script>
   <script src="js/books-store.js"></script>
   <script src="js/image-utils.js"></script>

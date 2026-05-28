@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="../assets/logo.png">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
 </head>
 <body>
 
@@ -25,7 +23,7 @@
             
                 <ul class="nav-links">
                 <li><a href="index.html" class="active" id="navHome">الرئيسية</a></li>
-                <li><a href="#catalog" id="navCatalog">كتالوج الكتب</a></li>
+                <li><a href="catalog.html" id="navCatalog">كتالوج الكتب</a></li>
                 <li><a href="contact.html" id="navContact">تواصل معنا</a></li>
                 <li><a href="auth/login.html" id="navLogin">تسجيل دخول</a></li>
                 <li><a href="auth/register.html" id="navRegister">تسجيل جديد</a></li>
@@ -62,7 +60,7 @@
                 <h1 id="heroTitle">اكتشف عالمك التالي بين <span>صفحات الكتب</span></h1>
                 <p id="heroDesc">مرحباً بك في متجر dm للكتب. نوفر لك تشكيلة مميزة من أروع الكتب العربية والإنجليزية المختارة بعناية لتناسب كل الأذواق، مع خدمة الدفع عند الاستلام والتوصيل السريع.</p>
                 <div class="hero-buttons">
-                    <a href="#catalog" class="btn btn-primary" id="btnShopNow">
+                    <a href="catalog.html" class="btn btn-primary" id="btnShopNow">
                         <i class="fa-solid fa-compass"></i> تصفح الكتب
                     </a>
                     <a href="https://www.whatsapp.com/channel/0029VbCPnmo7oQhWCB2QTr3w?utm_source=ig&utm_medium=social&utm_content=link_in_bio" target="_blank" class="btn btn-whatsapp" id="btnWhatsApp">
@@ -85,54 +83,22 @@
         </div>
     </section>
 
-    <!-- Main Content & Catalog -->
-    <main class="main-content" id="catalog">
+    <!-- Best Sellers Section -->
+    <section class="bestsellers-section">
         <div class="section-header">
-            <h2 id="sectionTitleText">أحدث الإصدارات</h2>
+            <h2 id="sectionTitleText">الأكثر مبيعاً</h2>
             <div class="section-ornament">
-                <i class="fa-solid fa-leaf"></i>
+                <i class="fa-solid fa-crown"></i>
             </div>
         </div>
-
-        <!-- Filter Controls -->
-        <div class="controls-bar">
-            <!-- Search -->
-            <div class="search-box">
-                <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" id="searchInput" placeholder="ابحث باسم الكتاب أو الكاتب..." oninput="filterBooksDebounced()">
-            </div>
-            
-            <!-- Category Filter -->
-            <select class="filter-select" id="categoryFilter" onchange="filterBooks()">
-                <option value="all">جميع التصنيفات</option>
-                <option value="novels">روايات</option>
-                <option value="religious">كتب دينية</option>
-                <option value="self-development">تنمية بشرية</option>
-                <option value="children">كتب أطفال</option>
-                <option value="science">علوم وتكنولوجيا</option>
-                <option value="history">تاريخ وسير</option>
-            </select>
-
-            <!-- Language Filter -->
-            <select class="filter-select" id="languageFilter" onchange="filterBooks()">
-                <option value="all">كل اللغات</option>
-                <option value="ar">العربية</option>
-                <option value="en">English</option>
-            </select>
-
-            <!-- Sort By -->
-            <select class="filter-select" id="sortBy" onchange="filterBooks()">
-                <option value="latest">الأحدث</option>
-                <option value="price-low">السعر: من الأقل للأعلى</option>
-                <option value="price-high">السعر: من الأعلى للأقل</option>
-            </select>
+        <div class="bestsellers-scroll" id="bestsellersContainer">
         </div>
-
-        <!-- Books Grid -->
-        <div class="books-grid is-loading" id="booksGrid" aria-busy="true">
-            <!-- Skeleton placeholders until books load -->
+        <div class="bestsellers-cta">
+            <a href="catalog.html" class="btn btn-primary" id="btnBrowseAll">
+                <i class="fa-solid fa-books"></i> تصفح جميع الكتب
+            </a>
         </div>
-    </main>
+    </section>
 
     <!-- Cart Drawer -->
     <div class="drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer(false)"></div>
@@ -185,7 +151,7 @@
                 <h4 id="footerQuickLinks">روابط سريعة</h4>
                 <ul class="footer-links">
                     <li><a href="index.html" id="footerLinkHome">الرئيسية</a></li>
-                    <li><a href="#catalog" id="footerLinkCatalog">كتالوج الكتب</a></li>
+                    <li><a href="catalog.html" id="footerLinkCatalog">كتالوج الكتب</a></li>
                     <li><a href="contact.html" id="footerLinkContact">تواصل معنا</a></li>
                     <li><a href="auth/login.html" id="footerLinkLogin">تسجيل دخول</a></li>
                     <li><a href="auth/register.html" id="footerLinkRegister">تسجيل جديد</a></li>
@@ -196,10 +162,10 @@
             <div class="footer-col">
                 <h4 id="footerCategoriesTitle">التصنيفات</h4>
                 <ul class="footer-links">
-                    <li><a href="#catalog" onclick="selectCategory('novels')" id="footerCatNovels">روايات</a></li>
-                    <li><a href="#catalog" onclick="selectCategory('religious')" id="footerCatRel">كتب دينية</a></li>
-                    <li><a href="#catalog" onclick="selectCategory('self-development')" id="footerCatSelf">تنمية بشرية</a></li>
-                    <li><a href="#catalog" onclick="selectCategory('children')" id="footerCatChild">كتب أطفال</a></li>
+                    <li><a href="catalog.html" onclick="selectCategory('novels')" id="footerCatNovels">روايات</a></li>
+                    <li><a href="catalog.html" onclick="selectCategory('religious')" id="footerCatRel">كتب دينية</a></li>
+                    <li><a href="catalog.html" onclick="selectCategory('self-development')" id="footerCatSelf">تنمية بشرية</a></li>
+                    <li><a href="catalog.html" onclick="selectCategory('children')" id="footerCatChild">كتب أطفال</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -207,7 +173,7 @@
                 <div class="footer-contact">
                     <div class="contact-item">
                         <i class="fa-solid fa-envelope"></i>
-                        <span>support@dm-books.com</span>
+                        <span>mt.amr@proton.me</span>
                     </div>
                     <div class="contact-item">
                         <i class="fa-solid fa-phone"></i>

@@ -3,11 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
   <title>تواصل معنا — dm</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/png" href="assets/logo.png">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
 </head>
 <body>
   <header id="mainHeader">
@@ -18,7 +17,7 @@
       </a>
       <ul class="nav-links">
         <li><a href="index.html" id="navHome">الرئيسية</a></li>
-        <li><a href="index.html#catalog" id="navCatalog">كتالوج الكتب</a></li>
+        <li><a href="catalog.html" id="navCatalog">كتالوج الكتب</a></li>
         <li><a href="contact.html" class="active" id="navContact">تواصل معنا</a></li>
         <li><a href="auth/login.html" id="navLogin">تسجيل دخول</a></li>
         <li><a href="auth/register.html" id="navRegister">تسجيل جديد</a></li>
@@ -39,7 +38,7 @@
     <div class="content-card uiglass">
       <h3><i class="fa-solid fa-headset" style="color:var(--gold)"></i> بيانات التواصل</h3>
       <ul class="contact-info-list">
-        <li><i class="fa-solid fa-envelope"></i><div><strong>البريد</strong><br>contact.ma.2005@gmail.com</div></li>
+        <li><i class="fa-solid fa-envelope"></i><div><strong>البريد</strong><br>mt.amr@proton.me</div></li>
         <li><i class="fa-solid fa-phone"></i><div><strong>الهاتف / واتساب</strong><br><a href="https://wa.me/201559215694" target="_blank">+20 155 921 5694</a></div></li>
         <li><i class="fa-brands fa-instagram"></i><div><strong>إنستغرام</strong><br><a href="https://www.instagram.com/dmbookstore/" target="_blank">@dmbookstore</a></div></li>
         <li><i class="fa-solid fa-location-dot"></i><div><strong>العنوان</strong><br>القاهرة، جمهورية مصر العربية</div></li>
@@ -89,11 +88,13 @@
     </div>
     <div class="footer-bottom">
       <p>© 2026 مكتبة dm. جميع الحقوق محفوظة.</p>
+      <p style="margin-top:4px;font-size:13px;color:var(--text-muted);">المطور: <a href="https://www.instagram.com/idk_yahia_/" target="_blank" rel="noopener noreferrer" style="color:var(--gold);font-weight:700;text-decoration:none;">يحيى رضا</a></p>
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="js/supabase-config.js"></script>
+  <script src="js/crypto-utils.js"></script>
   <script src="js/session.js"></script>
   <script src="js/contact.js"></script>
 </body>

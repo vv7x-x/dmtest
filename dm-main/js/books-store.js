@@ -3,9 +3,9 @@
  */
 (function () {
   const LIST_COLUMNS =
-    "id,title,author,price,category,language,image_url,in_stock,created_at";
-  const CACHE_KEY = "dm_books_list_v2";
-  const CACHE_TS_KEY = "dm_books_list_ts_v2";
+    "id,title,author,price,category,language,image_url,in_stock,created_at,discount_percentage,is_best_seller";
+  const CACHE_KEY = "dm_books_list_v3";
+  const CACHE_TS_KEY = "dm_books_list_ts_v3";
   const CACHE_TTL_MS = 30 * 60 * 1000;
 
   let inflightFetch = null;

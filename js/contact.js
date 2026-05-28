@@ -13,28 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const email = document.getElementById('contactEmail').value.trim();
     const message = document.getElementById('contactBody').value.trim();
 
-    if (name.length < 2 || email.length < 5 || message.length < 5) {
-      if (msgEl) {
-        msgEl.textContent = 'يرجى ملء جميع الحقول المطلوبة بشكل صحيح.';
-        msgEl.className = 'auth-message auth-message--error';
-        msgEl.hidden = false;
-      }
-      btn.disabled = false;
-      btn.innerHTML = orig;
-      return;
-    }
-
-    if (message.length > 5000) {
-      if (msgEl) {
-        msgEl.textContent = 'الرسالة طويلة جداً. الحد الأقصى 5000 حرف.';
-        msgEl.className = 'auth-message auth-message--error';
-        msgEl.hidden = false;
-      }
-      btn.disabled = false;
-      btn.innerHTML = orig;
-      return;
-    }
-
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> جاري الإرسال...';
     if (msgEl) { msgEl.hidden = true; msgEl.textContent = ''; }
@@ -47,13 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) user_id = session.user.id;
 
-      const sanitized = {
+      const { error } = await supabase.from('contact_messages').insert([{
         user_id,
-        name: name.slice(0, 200),
-        email: email.slice(0, 320),
-        message: message.slice(0, 5000)
-      };
-      const { error } = await supabase.from('contact_messages').insert([sanitized]);
+        name,
+        email,
+        message
+      }]);
       if (error) throw error;
 
       form.reset();

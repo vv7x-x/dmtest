@@ -539,11 +539,14 @@ function switchTab(tab) {
     activeTab = tab;
     document.getElementById("tabBtnOrders").classList.toggle("active", tab === "orders");
     document.getElementById("tabBtnBooks").classList.toggle("active", tab === "books");
+    document.getElementById("tabBtnEmailSettings").classList.toggle("active", tab === "email-settings");
     document.getElementById("paneOrders").style.display = tab === "orders" ? "block" : "none";
     document.getElementById("paneBooks").style.display = tab === "books" ? "block" : "none";
+    document.getElementById("paneEmailSettings").style.display = tab === "email-settings" ? "block" : "none";
     
     if (tab === "orders") loadOrders();
-    else loadBooks();
+    else if (tab === "books") loadBooks();
+    else if (tab === "email-settings") loadEmailSettings();
 }
 
 // ---------------------------

@@ -51,7 +51,10 @@ const translations = {
         footerContactTitle: "تواصل معنا",
         footerLocation: "القاهرة، جمهورية مصر العربية",
         footerCopyright: "© 2026 مكتبة dm. جميع الحقوق محفوظة.",
-        footerCOD: "<i class='fa-solid fa-truck-fast'></i> الدفع عند الاستلام في جميع المحافظات"
+        footerCOD: "<i class='fa-solid fa-truck-fast'></i> الدفع عند الاستلام في جميع المحافظات",
+        whatsappNoteTitle: "🎁 عايز تستعجل توصيل طلبك؟ أو تبعت كتاب كهدية (جيفت) لحد؟",
+        whatsappNoteDesc: "تواصل معنا عالواتساب عشان نجهز طلبك بسرعة",
+        whatsappBtnText: "<i class='fa-brands fa-whatsapp'></i> تواصل عبر واتساب"
     },
     en: {
         pageTitle: "dm | Checkout",
@@ -104,7 +107,10 @@ const translations = {
         footerContactTitle: "Contact Us",
         footerLocation: "Cairo, Egypt",
         footerCopyright: "© 2026 dm Bookstore. All rights reserved.",
-        footerCOD: "<i class='fa-solid fa-truck-fast'></i> Cash on Delivery available nationwide"
+        footerCOD: "<i class='fa-solid fa-truck-fast'></i> Cash on Delivery available nationwide",
+        whatsappNoteTitle: "🎁 Want to expedite your order? Or send a book as a gift?",
+        whatsappNoteDesc: "Contact us on WhatsApp to prepare your order quickly",
+        whatsappBtnText: "<i class='fa-brands fa-whatsapp'></i> Contact via WhatsApp"
     }
 };
 
@@ -254,6 +260,11 @@ function applyLanguage(lang) {
         govSelect.options[6].text = t.govRemote;
     }
     
+    // WhatsApp Note
+    safeSetText("whatsappNoteTitle", t.whatsappNoteTitle);
+    safeSetText("whatsappNoteDesc", t.whatsappNoteDesc);
+    safeSetText("whatsappBtnText", t.whatsappBtnText);
+
     // Success panel
     safeSetText("successTitle", t.successTitle);
     safeSetText("successDesc", t.successDesc);

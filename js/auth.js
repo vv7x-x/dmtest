@@ -40,7 +40,7 @@
       'Invalid login credentials': 'البريد أو كلمة المرور غير صحيحة.',
       'Email not confirmed': 'يرجى تأكيد بريدك الإلكتروني قبل تسجيل الدخول.',
       'User already registered': 'هذا البريد مسجّل مسبقاً. جرّب تسجيل الدخول.',
-      'Password should be at least 6 characters': 'كلمة المرور يجب أن تكون 8 أحرف على الأقل.',
+      'Password should be at least 6 characters': 'كلمة المرور يجب أن تكون 6 أحرف على الأقل.',
       'Unable to validate email address: invalid format': 'صيغة البريد الإلكتروني غير صحيحة.',
       'Signup requires a valid password': 'أدخل كلمة مرور صالحة.'
     };
@@ -72,13 +72,8 @@
       ? document.getElementById('regName').value.trim()
       : '';
 
-    if (password.length < 8) {
-      showAuthMessage('كلمة المرور يجب أن تكون 8 أحرف على الأقل.', 'error');
-      setAuthLoading('registerForm', false);
-      return;
-    }
-    if (fullName.length < 2) {
-      showAuthMessage('يرجى إدخال الاسم الكامل.', 'error');
+    if (password.length < 6) {
+      showAuthMessage('كلمة المرور يجب أن تكون 6 أحرف على الأقل.', 'error');
       setAuthLoading('registerForm', false);
       return;
     }
@@ -130,8 +125,16 @@
       if (userId) await ensureProfile(userId, data.user.user_metadata?.full_name);
 
       showAuthMessage('تم تسجيل الدخول بنجاح!', 'success');
-      const next = new URLSearchParams(location.search).get('next');
-      const target = next ? decodeURIComponent(next) : appHref('account/profile.html');
+      const nextRaw = new URLSearchParams(location.search).get('next');
+      var next = null;
+      if (nextRaw) {
+        if (window.dmCrypto) {
+          next = dmCrypto.decryptParam(nextRaw);
+        } else {
+          next = decodeURIComponent(nextRaw);
+        }
+      }
+      const target = next || appHref('account/profile.html');
       setTimeout(() => { window.location.href = target; }, 400);
     } catch (err) {
       console.error(err);
@@ -174,7 +177,8 @@
     try {
       const { data: { session } } = await client().auth.getSession();
       if (!session) {
-        window.location.href = appHref(`auth/login.html?next=${encodeURIComponent(location.pathname)}`);
+        var nextParam = window.dmCrypto ? dmCrypto.encryptParam(location.pathname) : encodeURIComponent(location.pathname);
+        window.location.href = appHref('auth/login.html?next=' + nextParam);
         return;
       }
       const user = session.user;

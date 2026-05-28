@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/favicon.png">
     <title>dm | إتمام الشراء</title>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/png" href="assets/logo.png">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://vjibucksajumamngxcku.supabase.co 'unsafe-inline' 'unsafe-eval'; style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; img-src 'self' https://vjibucksajumamngxcku.supabase.co data: blob:; connect-src 'self' https://vjibucksajumamngxcku.supabase.co wss://vjibucksajumamngxcku.supabase.co https://cdn.jsdelivr.net; font-src 'self' https://cdnjs.cloudflare.com data:; form-action 'self'; base-uri 'self';">
 </head>
 <body>
 
@@ -23,7 +22,7 @@
             
             <ul class="nav-links">
                 <li><a href="index.html" id="navHome">الرئيسية</a></li>
-                <li><a href="index.html#catalog" id="navCatalog">كتالوج الكتب</a></li>
+                <li><a href="catalog.html" id="navCatalog">كتالوج الكتب</a></li>
                 <li><a href="contact.html" id="navContact">تواصل معنا</a></li>
                 <li><a href="auth/login.html" id="navLogin">تسجيل دخول</a></li>
                 <li><a href="auth/register.html" id="navRegister">تسجيل جديد</a></li>
@@ -94,6 +93,16 @@
                                 <div style="font-size:12px; font-weight:normal; opacity:0.8;" id="lblPaymentDesc">ستقوم بالدفع نقداً لمندوب الشحن فور استلام طلبك.</div>
                             </div>
                         </div>
+
+                        <!-- WhatsApp Note -->
+                        <div class="checkout-whatsapp-note">
+                            <div class="whatsapp-note-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                            <div class="whatsapp-note-text">
+                                <p id="whatsappNoteTitle">🎁 عايز تستعجل توصيل طلبك؟ أو تبعت كتاب كهدية (جيفت) لحد؟</p>
+                                <p id="whatsappNoteDesc">تواصل معنا عالواتساب عشان نجهز طلبك بسرعة</p>
+                                <a href="https://wa.me/201559215694" target="_blank" class="whatsapp-note-btn" id="whatsappBtnText"><i class="fa-brands fa-whatsapp"></i> تواصل عبر واتساب</a>
+                            </div>
+                        </div>
                         
                         <div id="checkoutMessage" class="auth-message" hidden role="alert"></div>
 
@@ -142,6 +151,16 @@
                     <div style="font-size:12px; color:var(--ink-light); text-align:center;" id="successOrderIDLabel">ORDER ID:</div>
                     <div style="font-size:16px; font-weight:800; color:var(--walnut); text-align:center; margin-top:4px;" id="successOrderID">-</div>
                 </div>
+
+                <!-- WhatsApp Note -->
+                <div class="checkout-whatsapp-note" style="text-align:right;direction:rtl;">
+                    <div class="whatsapp-note-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                    <div class="whatsapp-note-text">
+                        <p id="whatsappNoteTitle">🎁 عايز تستعجل توصيل طلبك؟ أو تبعت كتاب كهدية (جيفت) لحد؟</p>
+                        <p id="whatsappNoteDesc">تواصل معنا عالواتساب عشان نجهز طلبك بسرعة</p>
+                        <a href="https://wa.me/201559215694" target="_blank" class="whatsapp-note-btn" id="whatsappBtnText"><i class="fa-brands fa-whatsapp"></i> تواصل عبر واتساب</a>
+                    </div>
+                </div>
                 
                 <a href="index.html" class="btn btn-primary" id="successHomeBtn">
                     <i class="fa-solid fa-house"></i> العودة للرئيسية
@@ -170,7 +189,7 @@
                 <h4 id="footerQuickLinks">روابط سريعة</h4>
                 <ul class="footer-links">
                     <li><a href="index.html" id="footerLinkHome">الرئيسية</a></li>
-                    <li><a href="index.html#catalog" id="footerLinkCatalog">كتالوج الكتب</a></li>
+                    <li><a href="catalog.html" id="footerLinkCatalog">كتالوج الكتب</a></li>
                     <li><a href="contact.html" id="footerLinkContact">تواصل معنا</a></li>
                     <li><a href="auth/login.html" id="footerLinkLogin">تسجيل دخول</a></li>
                     <li><a href="auth/register.html" id="footerLinkRegister">تسجيل جديد</a></li>
@@ -181,10 +200,10 @@
             <div class="footer-col">
                 <h4 id="footerCategoriesTitle">التصنيفات</h4>
                 <ul class="footer-links">
-                    <li><a href="index.html#catalog" id="footerCatNovels">روايات</a></li>
-                    <li><a href="index.html#catalog" id="footerCatRel">كتب دينية</a></li>
-                    <li><a href="index.html#catalog" id="footerCatSelf">تنمية بشرية</a></li>
-                    <li><a href="index.html#catalog" id="footerCatChild">كتب أطفال</a></li>
+                    <li><a href="catalog.html" id="footerCatNovels">روايات</a></li>
+                    <li><a href="catalog.html" id="footerCatRel">كتب دينية</a></li>
+                    <li><a href="catalog.html" id="footerCatSelf">تنمية بشرية</a></li>
+                    <li><a href="catalog.html" id="footerCatChild">كتب أطفال</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -192,7 +211,7 @@
                 <div class="footer-contact">
                     <div class="contact-item">
                         <i class="fa-solid fa-envelope"></i>
-                        <span>support@dm-books.com</span>
+                        <span>mt.amr@proton.me</span>
                     </div>
                     <div class="contact-item">
                         <i class="fa-solid fa-phone"></i>
@@ -207,6 +226,7 @@
         </div>
         <div class="footer-bottom">
             <p id="footerCopyright">© 2026 مكتبة dm. جميع الحقوق محفوظة.</p>
+            <p id="footerDeveloper" style="margin-top:4px;font-size:13px;color:var(--text-muted);">المطور: <a href="https://www.instagram.com/idk_yahia_/" target="_blank" rel="noopener noreferrer" style="color:var(--gold);font-weight:700;text-decoration:none;">يحيى رضا</a></p>
             <p id="footerCOD" style="color: var(--gold); font-weight: 700;"><i class="fa-solid fa-truck-fast"></i> الدفع عند الاستلام في جميع المحافظات</p>
         </div>
     </footer>
@@ -215,6 +235,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Supabase Config -->
     <script src="js/supabase-config.js"></script>
+    <script src="js/crypto-utils.js"></script>
     <script src="js/session.js"></script>
     <!-- Checkout page logic -->
     <script src="js/checkout.js"></script>
